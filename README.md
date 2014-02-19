@@ -1,8 +1,6 @@
 angular-rest-springsecurity
 ===========================
 
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=shoxrocks&url=https://github.com/philipsorst/angular-rest-springsecurity&title=Angular JS Spring Security Example&language=&tags=github&category=software) 
-
 An example AngularJS Application that uses a Spring Security protected Jersey REST backend based on Hibernate/JPA.
 
 About
@@ -32,7 +30,7 @@ Technologies
 Running
 -------
 
-Make sure [Maven](http://maven.apache.org/) >= 2.2.1 is installed on your system. Go into the project dir and type `mvn jetty:run`, then point your browser to `http://localhost:8080`.
+Make sure [Maven](http://maven.apache.org/) >= 3.0.5 is installed on your system. Go into the project dir and type `mvn jetty:run`, then point your browser to `http://localhost:8080`.
 
 License
 -------

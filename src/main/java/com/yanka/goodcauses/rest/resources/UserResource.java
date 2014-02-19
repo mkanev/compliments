@@ -29,6 +29,7 @@ import javax.ws.rs.core.MediaType;
 public class UserResource {
 
     @Autowired
+    @Qualifier("userManager")
     private UserManager userManager;
 
     @Autowired

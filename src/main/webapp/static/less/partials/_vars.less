@@ -1,5 +1,6 @@
 // Colors
 @color-white: #f8f8f8;
+@color-black: #333333;
 // Flat UI
 //lighter
 @color-turquoise: #1abc9c;
@@ -26,11 +27,16 @@
 
 // Fonts
 @font-family-base: Arial, "Liberation Sans", FreeSans, sans-serif;
+@font-family-bold-us: "Helvetica Neue", @font-family-base;
+@font-family-bold-ru: kelson_sans_rubold, @font-family-bold-us;
 @font-family-light-us: "Helvetica Neue", @font-family-base;
 @font-family-light-ru: kelson_sans_rulight, @font-family-light-us;
 @font-family-regular-us: Helvetica, @font-family-base;
 @font-family-regular-ru: kelson_sans_ruregular, @font-family-regular-us;
 
 //Structure
-@header-height: 125;
-@footer-height: 30;
+@header-height: 50;
+@credentials-height: 165;
+@recent-users-height: 30;
+@partners-height: 50;
+@footer-height: @credentials-height + @recent-users-height + @partners-height;

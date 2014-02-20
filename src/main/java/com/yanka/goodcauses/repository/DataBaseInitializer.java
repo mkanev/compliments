@@ -39,7 +39,7 @@ public class DataBaseInitializer {
         adminUser.addRole("admin");
         userDao.saveEntity(adminUser);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             NewsEntry newsEntry = new NewsEntry();
             newsEntry.setContent("This is example content " + i);
             newsEntryDao.saveEntity(newsEntry);

@@ -11,25 +11,36 @@ body {
 .mainWrapper {
   min-height: 100%;
   height: auto !important;
-  height: 100%;
+  margin: 0 auto ~"-@{footer-height}px";
+  padding: 0 0 ~"@{footer-height}px";
 }
 
 .page-content {
   /* Negative indent footer by its height */
-  margin-bottom: ~"-@{footer-height}px";
+//  margin-bottom: ~"-@{footer-height}px";
   /* Pad bottom by footer height */
-  padding-top: 70px;
-  padding-bottom: ~"@{footer-height}px";
+  padding-top: 60px;
+//  padding-bottom: ~"@{footer-height}px";
 }
 
-header,
 nav,
 footer {
   font-family: @font-family-light-ru;
 }
 
+header {
+  height: ~"@{header-height}px";
+  font-family: @font-family-bold-ru;
+  font-size: 1.8em;
+  line-height: 2em;
+  color: @color-white;
+  background-color: @color-turquoise;
+}
+
 footer {
   height: ~"@{footer-height}px";
-  background-color: @color-white;
-  padding-top: 0.5em;
+  background-color: @color-concrete;
+  color: @color-white;
 }
+
+

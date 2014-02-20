@@ -13,29 +13,29 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {"classpath:spring/context.xml"})
 public class PasswordEncoderTest {
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
-	@Test
-	public void testDefaultPasswords() {
+    @Test
+    public void testDefaultPasswords() {
 
-		System.out.println(this.passwordEncoder.encode("user"));
-		System.out.println(this.passwordEncoder.encode("admin"));
+        System.out.println(this.passwordEncoder.encode("user"));
+        System.out.println(this.passwordEncoder.encode("admin"));
 
-		Assert.assertEquals(
-				"949f4ae5896a01d231c6f5af079dff23bab120cec83b787f527bc02b03f8fc91",
-				this.passwordEncoder.encode("user"));
-		Assert.assertEquals(
-				"f82959d41f9330bd853d3e11345e08eda948544666bfc17806493df9d4b305f0",
-				this.passwordEncoder.encode("admin"));
+        Assert.assertEquals(
+            "452a9d86930c44a856332578395a1cd7429ab3aa5a70fd35fb4b96cf58bdf865db11df56685629b1e09f2ec6e812a9916b2b5fadbe68c16031260f116c946eae",
+            this.passwordEncoder.encode("user"));
+        Assert.assertEquals(
+            "f5cbc3b5d2f2faf4015014e6df64f638c95cf1f0c948013d173bbe98ad41e9f9b7a8268f32f76c642327e89b1f523cb61a99aa4d3e353d78fd059338a7f86aae",
+            this.passwordEncoder.encode("admin"));
 
-		Assert.assertTrue(this.passwordEncoder.matches(
-				"user",
-				"949f4ae5896a01d231c6f5af079dff23bab120cec83b787f527bc02b03f8fc91"));
-		Assert.assertTrue(this.passwordEncoder.matches(
-				"admin",
-				"f82959d41f9330bd853d3e11345e08eda948544666bfc17806493df9d4b305f0"));
-	}
+        Assert.assertTrue(this.passwordEncoder.matches(
+            "user",
+            "452a9d86930c44a856332578395a1cd7429ab3aa5a70fd35fb4b96cf58bdf865db11df56685629b1e09f2ec6e812a9916b2b5fadbe68c16031260f116c946eae"));
+        Assert.assertTrue(this.passwordEncoder.matches(
+            "admin",
+            "f5cbc3b5d2f2faf4015014e6df64f638c95cf1f0c948013d173bbe98ad41e9f9b7a8268f32f76c642327e89b1f523cb61a99aa4d3e353d78fd059338a7f86aae"));
+    }
 
 }

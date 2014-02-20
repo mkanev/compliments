@@ -1,6 +1,23 @@
 @import 'partials/_mixins';
 @import 'partials/_structure';
 @import 'partials/_common';
+@import 'partials/_override';
 
 @primary-color: @color-nephritis;
 @highlight: @color-white;
+
+.credentials {
+  height: ~"@{credentials-height}px";
+}
+
+.recent-users {
+  height: ~"@{recent-users-height}px";
+  background-color: @color-white;
+  color: @color-black;
+}
+
+.partners {
+  height: ~"@{partners-height}px";
+  background-color: @color-white;
+  color: @color-black;
+}

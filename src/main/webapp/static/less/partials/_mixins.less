@@ -1,0 +1,28 @@
+.font-size(@sizeValue) {
+  @remValue: @sizeValue;
+  @pxValue: (@sizeValue * 10);
+  font-size: ~"@{pxValue}px";
+  font-size: ~"@{remValue}rem";
+}
+
+.border-radius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.gradient(@origin: left, @start: #ffffff, @stop: #000000) {
+  background-color: @start;
+  background-image: -webkit-linear-gradient(@origin, @start, @stop);
+  background-image: -moz-linear-gradient(@origin, @start, @stop);
+  background-image: -o-linear-gradient(@origin, @start, @stop);
+  background-image: -ms-linear-gradient(@origin, @start, @stop);
+  background-image: linear-gradient(@origin, @start, @stop);
+}
+
+.fit-line-height(@block-height: 30, @block-font-rem: 1.5, @block-line-height: 2) {
+  @block-margin-top: (@block-height - @block-font-rem * @block-line-height * 10)/2;
+  .font-size(@block-font-rem);
+  margin-top: ~"@{block-margin-top}px";
+  line-height: ~"@{block-line-height}em";
+}

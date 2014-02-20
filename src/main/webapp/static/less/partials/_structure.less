@@ -1,0 +1,35 @@
+@import '_fonts';
+@import '_vars';
+
+// Structure
+
+html,
+body {
+  height: 100%;
+}
+
+.mainWrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+}
+
+.page-content {
+  /* Negative indent footer by its height */
+  margin-bottom: ~"-@{footer-height}px";
+  /* Pad bottom by footer height */
+  padding-top: 70px;
+  padding-bottom: ~"@{footer-height}px";
+}
+
+header,
+nav,
+footer {
+  font-family: @font-family-light-ru;
+}
+
+footer {
+  height: ~"@{footer-height}px";
+  background-color: @color-white;
+  padding-top: 0.5em;
+}

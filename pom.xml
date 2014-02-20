@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.dontdrinkandroot.example</groupId>
-	<artifactId>angular-rest-springsecurity</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.dontdrinkandroot.example</groupId>
+    <artifactId>angular-rest-springsecurity</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <developers>
         <developer>
@@ -17,17 +17,17 @@
         </developer>
     </developers>
 
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-	<prerequisites>
-		<maven>3.0.5</maven>
-	</prerequisites>
+    <prerequisites>
+        <maven>3.0.5</maven>
+    </prerequisites>
 
     <scm>
         <connection>scm:git:https://github.com/mkanev/good-causes-server.git</connection>
@@ -66,6 +66,8 @@
     </repositories>
 
     <properties>
+        <project.source.version>1.7</project.source.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>3.2.6.RELEASE</spring.version>
         <spring-security.version>3.2.0.RELEASE</spring-security.version>
         <bonecp.version>0.8.0.RELEASE</bonecp.version>
@@ -74,30 +76,80 @@
         <slf4j.version>1.6.1</slf4j.version>
         <logback.version>1.0.7</logback.version>
         <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
-        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <maven.plugin.compiler.version>3.1</maven.plugin.compiler.version>
+        <maven.plugin.resources.version>2.4</maven.plugin.resources.version>
+        <maven.plugin.jetty.version>9.1.1.v20140108</maven.plugin.jetty.version>
+        <maven.plugin.lesscss.version>1.3.3</maven.plugin.lesscss.version>
         <org.hsqldb.version>2.2.9</org.hsqldb.version>
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <junit.version>4.11</junit.version>
-        <org.eclipse.jetty.jetty-maven-plugin.version>9.1.1.v20140108</org.eclipse.jetty.jetty-maven-plugin.version>
     </properties>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
+                <version>${maven.plugin.compiler.version}</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${project.source.version}</source>
+                    <target>${project.source.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.plugin.resources.version}</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>${org.eclipse.jetty.jetty-maven-plugin.version}</version>
+                <version>${maven.plugin.jetty.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.lesscss</groupId>
+                <artifactId>lesscss-maven-plugin</artifactId>
+                <version>${maven.plugin.lesscss.version}</version>
+                <configuration>
+                    <sourceDirectory>${project.basedir}/src/main/webapp/static/less</sourceDirectory>
+                    <outputDirectory>${project.basedir}/src/main/webapp/static/css</outputDirectory>
+                    <compress>true</compress>
+                    <excludes>
+                        <exclude>partials/**/*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>development</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.lesscss</groupId>
+                        <artifactId>lesscss-maven-plugin</artifactId>
+                        <version>${maven.plugin.lesscss.version}</version>
+                        <configuration>
+                            <compress>false</compress>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
@@ -111,58 +163,57 @@
         </dependencies>
     </dependencyManagement>
 
-	<dependencies>
+    <dependencies>
 
         <!-- Spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-		<!-- Huh? Spring Jdbc is suddenly marked as provided by spring-orm? -->
-		 <dependency>
-		     <groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
-		<!-- Jersey -->
+        <!-- Jersey -->
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
             <artifactId>jersey-spring3</artifactId>
             <version>2.5.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-json</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.owlike</groupId>
             <artifactId>genson</artifactId>
             <version>0.98</version>
         </dependency>
         <!-- ORM -->
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>${org.hsqldb.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>${commons-dbcp.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${org.hsqldb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${commons-dbcp.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.jolbox</groupId>
             <artifactId>bonecp</artifactId>
@@ -178,11 +229,11 @@
             <artifactId>bonecp-spring</artifactId>
             <version>${bonecp.version}</version>
         </dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${org.hibernate.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${org.hibernate.version}</version>
+        </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -211,12 +262,12 @@
             <version>${spring-security.version}</version>
         </dependency>
         <!-- Servlet API -->
-    	<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${javax.servlet-api.version}</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- Commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -265,12 +316,12 @@
             <!--<scope>runtime</scope>-->
         </dependency>
         <!-- Testing -->
-    	<dependency>
-    		<groupId>junit</groupId>
-    		<artifactId>junit</artifactId>
-    		<version>${junit.version}</version>
-    		<scope>test</scope>
-    	</dependency>
-	</dependencies>
-	
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 </project>

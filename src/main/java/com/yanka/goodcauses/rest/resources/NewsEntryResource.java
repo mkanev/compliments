@@ -45,7 +45,7 @@ public class NewsEntryResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String list() throws JsonGenerationException, JsonMappingException, IOException {
+    public String list() throws IOException {
 
         this.logger.info("list()");
 

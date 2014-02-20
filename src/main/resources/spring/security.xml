@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--
+        SPRING SECURITY SETUP
+    -->
+
+    <bean id="userManager" class="com.yanka.goodcauses.service.UserManagerImpl" />
+
+    <bean id="passwordEncoder" class="com.yanka.goodcauses.security.SaltedSHA512PasswordEncoder">
+        <constructor-arg value="secret" />
+    </bean>
+
+    <security:authentication-manager id="authenticationManager">
+        <security:authentication-provider user-service-ref="userManager">
+            <security:password-encoder ref="passwordEncoder" />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <security:http realm="Protected API" use-expressions="true" auto-config="false" create-session="stateless" entry-point-ref="unauthorizedEntryPoint"
+        authentication-manager-ref="authenticationManager">
+        <security:custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER" />
+        <security:intercept-url pattern="/rest/user/authenticate" access="permitAll" />
+        <security:intercept-url method="GET" pattern="/rest/news/**" access="hasRole('user')" />
+        <security:intercept-url method="PUT" pattern="/rest/news/**" access="hasRole('admin')" />
+        <security:intercept-url method="POST" pattern="/rest/news/**" access="hasRole('admin')" />
+        <security:intercept-url method="DELETE" pattern="/rest/news/**" access="hasRole('admin')" />
+    </security:http>
+
+    <bean id="unauthorizedEntryPoint" class="com.yanka.goodcauses.rest.UnauthorizedEntryPoint" />
+
+    <bean class="com.yanka.goodcauses.rest.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter">
+        <constructor-arg ref="userManager" />
+    </bean>
+
+</beans>

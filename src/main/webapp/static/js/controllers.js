@@ -4,7 +4,7 @@ define(['jquery', 'angular', 'services'], function ($, angular) {
     /* Controllers */
 
     return angular.module('exampleApp.controllers', ['exampleApp.services'])
-        .controller('IndexController', ['$scope', 'NewsService', function ($scope, NewsService) {
+        .controller('NewsController', ['$scope', 'NewsService', function ($scope, NewsService) {
             $scope.newsEntries = NewsService.query();
 
             $scope.deleteEntry = function (newsEntry) {

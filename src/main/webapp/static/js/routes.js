@@ -23,7 +23,7 @@ define(['angular', 'app'], function (angular, app) {
             });
 
             $routeProvider.when('/partners', {
-                templateUrl: 'static/partials/mission.html'
+                templateUrl: 'static/partials/partners.html'
             });
 
             $routeProvider.when('/activity', {
@@ -31,7 +31,8 @@ define(['angular', 'app'], function (angular, app) {
             });
 
             $routeProvider.when('/blog', {
-                templateUrl: 'static/partials/blog.html'
+                templateUrl: 'static/partials/blog.html'/*,
+                controller: 'NewsController'*/
             });
 
             $routeProvider.when('/about', {
@@ -39,8 +40,8 @@ define(['angular', 'app'], function (angular, app) {
             });
 
             $routeProvider.otherwise({
-                                         templateUrl: 'static/partials/index.html',
-                                         controller: 'IndexController'
+                                         templateUrl: 'static/partials/index.html'/*,
+                                         controller: 'NewsController'*/
                                      });
 
             $locationProvider.hashPrefix('!');
@@ -80,7 +81,6 @@ define(['angular', 'app'], function (angular, app) {
                  /* Reset error when a new view is loaded */
                  $rootScope.$on('$viewContentLoaded', function () {
                      delete $rootScope.error;
-                     $templateCache.removeAll();
                  });
 
                  $rootScope.hasRole = function (role) {

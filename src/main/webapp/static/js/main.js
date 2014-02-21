@@ -6,6 +6,7 @@ require.config(
                 'exports': 'angular'
             },
             bootstrap: ['jquery'],
+            isotope: ['jquery'],
             'angular-resource': ['angular'],
             'angular-route': ['angular'],
             'angular-cookies': ['angular']
@@ -13,6 +14,7 @@ require.config(
         paths: {
             jquery: '/webjars/jquery/2.0.3/jquery',
             bootstrap: '/webjars/bootstrap/3.1.1/js/bootstrap',
+            isotope: '//cdn.jsdelivr.net/isotope/1.5.25/jquery.isotope.min.js',
             angular: '/webjars/angularjs/1.2.9/angular',
             'angular-resource': '/webjars/angularjs/1.2.9/angular-resource',
             'angular-route': '/webjars/angularjs/1.2.9/angular-route',

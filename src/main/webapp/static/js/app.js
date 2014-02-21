@@ -6,7 +6,8 @@ define([
            'controllers',
            'angular-resource',
            'angular-route',
-           'angular-cookies'
+           'angular-cookies',
+           'angular-truncate'
        ], function (angular) {
     'use strict';
 
@@ -16,6 +17,7 @@ define([
             'ngRoute',
             'ngCookies',
             'ngResource',
+            'igTruncate',
             'exampleApp.controllers',
             'exampleApp.filters',
             'exampleApp.services',

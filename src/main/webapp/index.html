@@ -13,7 +13,7 @@
     <header class="hidden-xs">
         <div class="container">
             <div class="row">
-                <span class="col-md-12 text-center slogan">HAS NEVER BEEN SO EASY TO HELP</span>
+                <span class="col-sm-12 text-center slogan">HAS NEVER BEEN SO EASY TO HELP</span>
             </div>
         </div>
     </header>
@@ -31,12 +31,13 @@
 
             <div class="collapse navbar-collapse" id="gc-navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{ active: isCurrentPath('/') || isCurrentPath('')}"><a href="#!/">Home</a></li>
+                    <li ng-class="{ active: isCurrentPath('/') || isCurrentPath('')}" ng-hide="user"><a href="#!/">Home</a></li>
                     <li ng-class="{ active: isCurrentPath('/mission')}"><a href="#!/mission">Mission</a></li>
-                    <li ng-class="{ active: isCurrentPath('/partners')}"><a href="#!/partners">Partners</a></li>
+                    <li ng-class="{ active: isCurrentPath('/funds')}"><a href="#!/funds">Funds</a></li>
                     <li ng-class="{ active: isCurrentPath('/activity')}"><a href="#!/activity">Activity</a></li>
                     <li ng-class="{ active: isCurrentPath('/blog')}"><a href="#!/blog">Blog</a></li>
-                    <li ng-class="{ active: isCurrentPath('/about')}"><a href="#!/about">About</a></li>
+                    <li ng-class="{ active: isCurrentPath('/partners')}"><a href="#!/partners">Partners</a></li>
+                    <li ng-class="{ active: isCurrentPath('/contact')}"><a href="#!/contact">Contact Us</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" ng-show="user">
                     <li class="dropdown">
@@ -52,27 +53,27 @@
 
     <div class="container">
         <div class="alert alert-danger" ng-show="error">{{error}}</div>
-        <div ng-view></div>
     </div>
+    <div ng-view></div>
 </div>
 
 <footer>
     <div class="container-fluid partners hidden-xs">
         <div class="row">
-            <span class="col-md-12 text-center">PARTNERS</span>
+            <span class="col-sm-12 text-center">PARTNERS</span>
         </div>
     </div>
-    <div class="container-fluid recent-users hidden-xs">
+    <div class="container-fluid recent-users hidden-xs hidden-sm">
         <div class="row">
-            <span class="col-md-12 text-center">RECENT USERS</span>
+            <span class="col-sm-12 text-center">RECENT USERS</span>
         </div>
     </div>
     <div class="credentials">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 text-center">CONTACT INFO</div>
-                <div class="col-md-4 hidden-xs text-center">FUNDS</div>
-                <div class="col-md-4 hidden-xs text-center">SOCIAL</div>
+                <div class="col-md-4 col-sm-6 text-center">CONTACT INFO</div>
+                <div class="col-md-4 col-sm-6 hidden-xs text-center">FUNDS</div>
+                <div class="col-md-4 hidden-xs hidden-sm text-center">SOCIAL</div>
             </div>
         </div>
     </div>

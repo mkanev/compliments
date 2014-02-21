@@ -22,8 +22,8 @@ define(['angular', 'app'], function (angular, app) {
                 templateUrl: 'static/partials/mission.html'
             });
 
-            $routeProvider.when('/partners', {
-                templateUrl: 'static/partials/partners.html'
+            $routeProvider.when('/funds', {
+                templateUrl: 'static/partials/funds.html'
             });
 
             $routeProvider.when('/activity', {
@@ -31,17 +31,19 @@ define(['angular', 'app'], function (angular, app) {
             });
 
             $routeProvider.when('/blog', {
-                templateUrl: 'static/partials/blog.html'/*,
-                controller: 'NewsController'*/
+                templateUrl: 'static/partials/blog.html'
             });
 
-            $routeProvider.when('/about', {
-                templateUrl: 'static/partials/about.html'
+            $routeProvider.when('/partners', {
+                templateUrl: 'static/partials/partners.html'
+            });
+
+            $routeProvider.when('/contact', {
+                templateUrl: 'static/partials/contact.html'
             });
 
             $routeProvider.otherwise({
-                                         templateUrl: 'static/partials/index.html'/*,
-                                         controller: 'NewsController'*/
+                                         templateUrl: 'static/partials/index.html'
                                      });
 
             $locationProvider.hashPrefix('!');
@@ -105,14 +107,14 @@ define(['angular', 'app'], function (angular, app) {
 
                  /* Try getting valid user from cookie or go to login page */
                  /*var originalPath = $location.path();
-                 $location.path("/login");
-                 var user = $cookieStore.get('user');
-                 if (user !== undefined) {
-                     $rootScope.user = user;
-                     $http.defaults.headers.common['X-Auth-Token'] = user.token;
+                  $location.path("/login");
+                  var user = $cookieStore.get('user');
+                  if (user !== undefined) {
+                  $rootScope.user = user;
+                  $http.defaults.headers.common['X-Auth-Token'] = user.token;
 
-                     $location.path(originalPath);
-                 }*/
+                  $location.path(originalPath);
+                  }*/
 
              });
 

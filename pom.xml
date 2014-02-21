@@ -315,6 +315,11 @@
             <artifactId>requirejs</artifactId>
             <version>${webjars.requirejs.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>requirejs-domready</artifactId>
+            <version>2.0.1</version>
+        </dependency>
         <!-- TODO: implement js sources substitution with CDN for production -->
         <!--<dependency>
             <groupId>rhino</groupId>

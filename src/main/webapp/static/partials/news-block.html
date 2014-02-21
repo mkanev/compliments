@@ -1,13 +1,33 @@
-<div id="newsEntries" ng-controller="NewsController">
-    <div class="col-md-4 col-sm-6" ng-repeat="newsEntry in newsEntries">
-        <!--<div class="pull-right">
-            <a ng-click="deleteEntry(newsEntry)" class="btn btn-xs btn-default" ng-show="hasRole('admin')">Remove</a>
-            <a href="#!/edit/{{newsEntry.id}}" class="btn btn-xs btn-default" ng-show="hasRole('admin')">Edit</a>
-        </div>-->
-        <div class="well well-sm">
-            <h4>{{newsEntry.date | date}}</h4>
+<div class="container">
+    <div class="row" ng-show="hasRole('admin')">
+        <div class="col-xs-12">
+            <a href="#!/create" class="btn btn-success btn-block">Create</a>
+        </div>
+    </div>
+    <br/>
 
-            <div class="info">{{newsEntry.content}}</div>
+    <div class="row">
+        <div id="newsEntries" ng-controller="NewsController">
+            <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="newsEntry in newsEntries">
+                <!--<div class="pull-right">
+                    <a ng-click="deleteEntry(newsEntry)" class="btn btn-xs btn-default" ng-show="hasRole('admin')">Remove</a>
+                    <a href="#!/edit/{{newsEntry.id}}" class="btn btn-xs btn-default" ng-show="hasRole('admin')">Edit</a>
+                </div>-->
+                <div class="thumbnail">
+                    <img src="http://placehold.it/300x200"/>
+
+                    <div class="caption">
+                        <h3>{{newsEntry.title | truncate:32}}</h3>
+
+                        <p>{{newsEntry.content | truncate:128}}</p>
+
+                        <p class="text-right" ng-show="hasRole('admin')">
+                            <a href="#!/edit/{{newsEntry.id}}" class="btn btn-warning">Edit</a>
+                            <a ng-click="deleteEntry(newsEntry)" class="btn btn-danger">Delete</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

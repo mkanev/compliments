@@ -8,7 +8,8 @@ require.config(
             bootstrap: ['jquery'],
             'angular-resource': ['angular'],
             'angular-route': ['angular'],
-            'angular-cookies': ['angular']
+            'angular-cookies': ['angular'],
+            'angular-truncate': ['angular']
         },
         paths: {
             jquery: '/webjars/jquery/2.0.3/jquery',
@@ -16,7 +17,9 @@ require.config(
             angular: '/webjars/angularjs/1.2.9/angular',
             'angular-resource': '/webjars/angularjs/1.2.9/angular-resource',
             'angular-route': '/webjars/angularjs/1.2.9/angular-route',
-            'angular-cookies': '/webjars/angularjs/1.2.9/angular-cookies'
+            'angular-cookies': '/webjars/angularjs/1.2.9/angular-cookies',
+            'angular-truncate': '/static/libs/angular-truncate/igTruncate',
+            domReady: '/webjars/requirejs-domready/2.0.1/domReady'
         },
         deps: ['bootstrap']
     });
@@ -30,5 +33,14 @@ require(['angular', 'app', 'routes'], function (angular, app) {
 
     angular.element().ready(function () {
         angular.resumeBootstrap([app['name']]);
+    });
+});
+
+require(['domReady', 'jquery'], function (domReady) {
+    domReady(function () {
+        $(".navbar").find("li:not('.dropdown') a").click(function (event) {
+            // check if window is small enough so dropdown is created
+            $(".navbar-collapse").removeClass("in").addClass("collapse");
+        });
     });
 });

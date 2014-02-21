@@ -41,7 +41,12 @@ public class DataBaseInitializer {
 
         for (int i = 0; i < 15; i++) {
             NewsEntry newsEntry = new NewsEntry();
-            newsEntry.setContent("This is example content " + i);
+            newsEntry.setTitle("This is example content " + i);
+            newsEntry.setContent(
+                "Phasellus euismod fermentum urna non vehicula. Ut massa nulla, tincidunt sed accumsan nec, imperdiet non tellus. Praesent non elit vehicula, malesuada eros ut, "
+                + "pulvinar urna. Morbi condimentum volutpat elit et tincidunt. In cursus purus sed dapibus condimentum. Vestibulum consequat velit non arcu tincidunt, dignissim "
+                + "pharetra eros sodales. Nulla sodales molestie congue. Pellentesque luctus elit eget arcu bibendum, a fringilla diam tempor. Fusce id interdum orci, sed ultrices "
+                + "mauris. Morbi ultricies enim ac enim fermentum pretium. Quisque tristique nisl tortor, vel dignissim augue dictum vel.");
             newsEntryDao.saveEntity(newsEntry);
         }
     }

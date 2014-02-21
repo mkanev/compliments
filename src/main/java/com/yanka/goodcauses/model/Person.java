@@ -2,7 +2,10 @@ package com.yanka.goodcauses.model;
 
 import com.google.common.base.Objects;
 
+import com.yanka.goodcauses.JsonViews;
+
 import org.apache.commons.lang3.StringUtils;
+import org.codehaus.jackson.map.annotate.JsonView;
 
 import java.util.Date;
 

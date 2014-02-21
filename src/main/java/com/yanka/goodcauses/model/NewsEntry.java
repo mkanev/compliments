@@ -30,7 +30,6 @@ public class NewsEntry extends GenericEntity {
     public NewsEntry() {
     }
 
-    @JsonView(JsonViews.User.class)
     public String getTitle() {
         return title;
     }
@@ -39,7 +38,6 @@ public class NewsEntry extends GenericEntity {
         this.title = caption;
     }
 
-    @JsonView(JsonViews.User.class)
     public String getContent() {
 
         return this.content;

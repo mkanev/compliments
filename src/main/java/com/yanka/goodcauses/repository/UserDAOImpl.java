@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
  * @author <a href="mailto:maksim.kanev@gmail.com">Maksim Kanev</a>
  */
 @Repository
-public class UserDAOImpl extends GenericEntityDAOImpl<User, Long> implements UserDAO {
+public class UserDAOImpl extends PersonDAOImpl<User> implements UserDAO {
 
     public UserDAOImpl() {
         super(User.class);

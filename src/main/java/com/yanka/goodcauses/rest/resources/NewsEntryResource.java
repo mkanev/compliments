@@ -2,10 +2,8 @@ package com.yanka.goodcauses.rest.resources;
 
 import com.yanka.goodcauses.JsonViews;
 import com.yanka.goodcauses.model.NewsEntry;
-import com.yanka.goodcauses.repository.NewsEntryDAO;
+import com.yanka.goodcauses.service.NewsEntryManager;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class NewsEntryResource {
     private final Logger logger = Logger.getLogger(NewsEntryResource.class.getName());
 
     @Autowired
-    private NewsEntryDAO newsEntryDao;
+    private NewsEntryManager newsEntryManager;
 
     @Autowired
     private ObjectMapper mapper;
@@ -55,7 +53,7 @@ public class NewsEntryResource {
         } else {
             viewWriter = this.mapper.writerWithView(JsonViews.User.class);
         }
-        List<NewsEntry> allEntries = this.newsEntryDao.getAll();
+        List<NewsEntry> allEntries = this.newsEntryManager.getAll();
 
         return viewWriter.writeValueAsString(allEntries);
     }
@@ -68,7 +66,7 @@ public class NewsEntryResource {
 
         this.logger.info("read(id)");
 
-        NewsEntry newsEntry = this.newsEntryDao.getEntity(id);
+        NewsEntry newsEntry = this.newsEntryManager.get(id);
         if (newsEntry == null) {
             throw new WebApplicationException(404);
         }
@@ -83,7 +81,7 @@ public class NewsEntryResource {
 
         this.logger.info("create(): " + newsEntry);
 
-        return this.newsEntryDao.saveEntity(newsEntry);
+        return this.newsEntryManager.save(newsEntry);
     }
 
 
@@ -95,7 +93,7 @@ public class NewsEntryResource {
 
         this.logger.info("update(): " + newsEntry);
 
-        return this.newsEntryDao.saveEntity(newsEntry);
+        return this.newsEntryManager.save(newsEntry);
     }
 
 
@@ -106,7 +104,7 @@ public class NewsEntryResource {
 
         this.logger.info("delete(id)");
 
-        this.newsEntryDao.deleteEntity(id);
+        this.newsEntryManager.remove(id);
     }
 
 

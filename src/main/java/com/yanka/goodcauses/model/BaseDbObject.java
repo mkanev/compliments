@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 
 import com.yanka.goodcauses.JsonViews;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonView;
 
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public abstract class BaseDBObject extends BaseObject implements Serializable {
     private Long id;
     private boolean deleted;
 
+    @JsonIgnore
     public boolean isDeleted() {
         return deleted;
     }

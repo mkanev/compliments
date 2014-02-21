@@ -9,7 +9,8 @@
         SPRING SECURITY SETUP
     -->
 
-    <bean id="userManager" class="com.yanka.goodcauses.service.UserManagerImpl" />
+    <!--<bean id="userManager" class="com.yanka.goodcauses.service.UserManagerImpl" />
+    <bean id="newsEntryManager" class="com.yanka.goodcauses.service.NewsEntryManagerImpl" />-->
 
     <bean id="passwordEncoder" class="com.yanka.goodcauses.security.SaltedSHA512PasswordEncoder">
         <constructor-arg value="secret" />

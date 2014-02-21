@@ -2,6 +2,7 @@ package com.yanka.goodcauses.service;
 
 import com.yanka.goodcauses.common.LoggedClass;
 import com.yanka.goodcauses.model.GenericEntity;
+import com.yanka.goodcauses.repository.GenericDAO;
 import com.yanka.goodcauses.repository.GenericEntityDAO;
 
 import java.io.Serializable;
@@ -14,12 +15,9 @@ import java.util.List;
 public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Serializable> extends LoggedClass implements GenericManager<T, PK> {
 
     private static final long serialVersionUID = 4852856653776616598L;
-    protected GenericEntityDAO<T, PK> dao;
+    protected GenericDAO<T, PK> dao;
 
-    protected GenericManagerImpl() {
-    }
-
-    public GenericManagerImpl(GenericEntityDAO<T, PK> genericDao) {
+    public GenericManagerImpl(GenericDAO<T, PK> genericDao) {
         this.dao = genericDao;
     }
 

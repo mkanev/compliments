@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 /**
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
-@Service
-public class UserManagerImpl extends GenericEntityManagerImpl<User> implements UserManager {
+@Service("userManager")
+public class UserManagerImpl extends PersonManagerImpl<User> implements UserManager {
 
     private UserDAO userDao;
 

@@ -1,5 +1,9 @@
 package com.yanka.goodcauses.model;
 
+import com.yanka.goodcauses.JsonViews;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,6 +50,7 @@ public class User extends Person implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return this.password;
     }
@@ -64,6 +69,42 @@ public class User extends Person implements UserDetails {
 
     public void addRole(String role) {
         this.roles.add(role);
+    }
+
+    @Override
+    @JsonView(JsonViews.Admin.class)
+    public String getFirstName() {
+        return super.getFirstName();
+    }
+
+    @Override
+    @JsonView(JsonViews.Admin.class)
+    public String getLastName() {
+        return super.getLastName();
+    }
+
+    @Override
+    @JsonView(JsonViews.Admin.class)
+    public String getPatronymic() {
+        return super.getPatronymic();
+    }
+
+    @Override
+    @JsonView(JsonViews.Admin.class)
+    public String getEmail() {
+        return super.getEmail();
+    }
+
+    @Override
+    @JsonView(JsonViews.Admin.class)
+    public String getCellPhone() {
+        return super.getCellPhone();
+    }
+
+    @Override
+    @JsonView(JsonViews.Admin.class)
+    public Date getBirthday() {
+        return super.getBirthday();
     }
 
     @Override

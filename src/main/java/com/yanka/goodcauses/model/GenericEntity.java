@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 
 import com.yanka.goodcauses.JsonViews;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonView;
 
 import java.util.Date;
@@ -36,7 +37,7 @@ public abstract class GenericEntity extends BaseDBObject {
     @Column(name = "uuid", nullable = false, unique = true, length = 64)
     private String uuid = UUID.randomUUID().toString();
 
-    @JsonView(JsonViews.User.class)
+    @JsonView(JsonViews.Admin.class)
     public Date getInsertDate() {
         return insertDate;
     }
@@ -45,7 +46,6 @@ public abstract class GenericEntity extends BaseDBObject {
         this.insertDate = insertDate;
     }
 
-    @JsonView(JsonViews.User.class)
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -54,7 +54,7 @@ public abstract class GenericEntity extends BaseDBObject {
         this.updateDate = updateDate;
     }
 
-    @JsonView(JsonViews.User.class)
+    @JsonIgnore
     public String getUuid() {
         return uuid;
     }

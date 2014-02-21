@@ -7,6 +7,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 /**
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
-public interface UserManager extends GenericEntityManager<User>, UserDetailsService {
+public interface UserManager extends PersonManager<User>, UserDetailsService {
 
 }

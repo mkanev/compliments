@@ -11,12 +11,9 @@ import java.util.List;
  */
 public abstract class GenericEntityManagerImpl<T extends GenericEntity> extends GenericManagerImpl<T, Long> implements GenericEntityManager<T> {
 
-    private GenericEntityDAO<T, Long> genericDao;
+    private GenericEntityDAO<T> genericDao;
 
-    protected GenericEntityManagerImpl() {
-    }
-
-    public GenericEntityManagerImpl(GenericEntityDAO<T, Long> genericDao) {
+    public GenericEntityManagerImpl(GenericEntityDAO<T> genericDao) {
         super(genericDao);
         this.genericDao = genericDao;
     }

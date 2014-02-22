@@ -3,7 +3,6 @@ package com.yanka.goodcauses.service;
 import com.yanka.goodcauses.common.LoggedClass;
 import com.yanka.goodcauses.model.GenericEntity;
 import com.yanka.goodcauses.repository.GenericDAO;
-import com.yanka.goodcauses.repository.GenericEntityDAO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,6 +25,14 @@ public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Ser
      */
     public List<T> getAll() {
         return dao.getAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<T> getExistingEntityList() {
+        return dao.getExistingEntityList();
     }
 
     /**

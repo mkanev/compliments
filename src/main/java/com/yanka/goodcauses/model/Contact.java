@@ -17,7 +17,7 @@ public class Contact extends Person {
     @Enumerated(EnumType.STRING)
     private Position position;
 
-    @JsonView(JsonViews.User.class)
+    @JsonView(JsonViews.Preview.class)
     public Position getPosition() {
         return position;
     }

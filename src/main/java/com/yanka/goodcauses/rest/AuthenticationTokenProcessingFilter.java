@@ -1,5 +1,6 @@
 package com.yanka.goodcauses.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,15 +16,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-
 public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 
-    private final UserDetailsService userService;
+    @Autowired
+    private UserDetailsService userService;
 
-    public AuthenticationTokenProcessingFilter(UserDetailsService userService) {
-        this.userService = userService;
+    public AuthenticationTokenProcessingFilter() {
     }
-
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -36,8 +35,7 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
         if (userName != null) {
             UserDetails userDetails = this.userService.loadUserByUsername(userName);
             if (TokenUtils.validateToken(authToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

@@ -1,9 +1,8 @@
 package com.yanka.goodcauses.model;
 
-import com.yanka.goodcauses.JsonViews;
+import com.google.common.base.Objects;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonView;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -72,6 +71,17 @@ public class Address extends GenericEntity {
 
     public void setAddressType(AddressType addressType) {
         this.addressType = addressType;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+            .add("country", country)
+            .add("city", city)
+            .add("street", street)
+            .add("building", building)
+            .add("flat/office", flat)
+            .toString();
     }
 
     @Override

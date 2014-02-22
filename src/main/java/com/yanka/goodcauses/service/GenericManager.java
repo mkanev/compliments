@@ -4,13 +4,13 @@ package com.yanka.goodcauses.service;
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
 
-import com.yanka.goodcauses.model.GenericEntity;
+import com.yanka.goodcauses.model.BaseDBObject;
 
 import java.io.Serializable;
 import java.util.List;
 
 
-public interface GenericManager<T extends GenericEntity, PK extends Serializable> {
+public interface GenericManager<T extends BaseDBObject, PK extends Serializable> {
 
     /**
      * Generic method used to get all objects of a particular type. This is the same as lookup up all rows in a table.
@@ -18,6 +18,13 @@ public interface GenericManager<T extends GenericEntity, PK extends Serializable
      * @return List of populated objects
      */
     List<T> getAll();
+
+    /**
+     * Общий метод для получения сущностей одного типа, которые не были удалены.
+     *
+     * @return Список полученных объектов
+     */
+    List<T> getExistingEntityList();
 
     /**
      * Generic method to get an object based on class and identifier. An ObjectRetrievalFailureException Runtime Exception is thrown if nothing is found.

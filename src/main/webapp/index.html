@@ -1,82 +1,79 @@
 <!DOCTYPE html>
 <html ng-app="exampleApp">
 <head>
-    <title>Good Causes</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="/webjars/bootstrap/3.1.1/css/bootstrap.css">
-    <link rel="stylesheet" href="/webjars/font-awesome/4.0.3/css/font-awesome.css">
-    <link rel="stylesheet" href="/static/css/main.css">
+  <title>Good Causes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="/webjars/bootstrap/3.1.1/css/bootstrap.css">
+  <link rel="stylesheet" href="/webjars/font-awesome/4.0.3/css/font-awesome.css">
+  <link rel="stylesheet" href="/static/css/jquery.bxslider.css">
+  <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
 
 <div class="mainWrapper">
-    <header class="hidden-xs">
-        <div class="container">
-            <div class="row">
-                <span class="col-sm-12 text-center slogan">HAS NEVER BEEN SO EASY TO HELP</span>
-            </div>
-        </div>
-    </header>
-    <nav class="navbar navbar-default" role="navigation" ng-controller="NavigationController">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gc-navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#!/">Good Causes</a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="gc-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li ng-class="{ active: isCurrentPath('/') || isCurrentPath('')}" ng-hide="user"><a href="#!/">Home</a></li>
-                    <li ng-class="{ active: isCurrentPath('/mission')}"><a href="#!/mission">Mission</a></li>
-                    <li ng-class="{ active: isCurrentPath('/funds')}"><a href="#!/funds">Funds</a></li>
-                    <li ng-class="{ active: isCurrentPath('/activity')}"><a href="#!/activity">Activity</a></li>
-                    <li ng-class="{ active: isCurrentPath('/blog')}"><a href="#!/blog">Blog</a></li>
-                    <li ng-class="{ active: isCurrentPath('/partners')}"><a href="#!/partners">Partners</a></li>
-                    <li ng-class="{ active: isCurrentPath('/contact')}"><a href="#!/contact">Contact Us</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right" ng-show="user">
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown">{{user.name}} <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="" ng-click="logout()">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+  <header class="hidden-xs">
     <div class="container">
-        <div class="alert alert-danger" ng-show="error">{{error}}</div>
+      <div class="row">
+        <span class="col-sm-12 text-center slogan">HAS NEVER BEEN SO EASY TO HELP</span>
+      </div>
     </div>
-    <div ng-view></div>
+  </header>
+  <nav class="navbar navbar-default" role="navigation" ng-controller="NavigationController">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gc-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#!/">Good Causes</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="gc-navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li ng-class="{ active: isCurrentPath('/') || isCurrentPath('')}" ng-hide="user"><a href="#!/">Home</a></li>
+          <li ng-class="{ active: isCurrentPath('/mission')}"><a href="#!/mission">Mission</a></li>
+          <li ng-class="{ active: isCurrentPath('/funds')}"><a href="#!/funds">Funds</a></li>
+          <li ng-class="{ active: isCurrentPath('/activity')}"><a href="#!/activity">Activity</a></li>
+          <li ng-class="{ active: isCurrentPath('/blog')}"><a href="#!/blog">Blog</a></li>
+          <!--<li ng-class="{ active: isCurrentPath('/partners')}"><a href="#!/partners">Partners</a></li>-->
+          <li ng-class="{ active: isCurrentPath('/contact')}"><a href="#!/contact">Contact Us</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" ng-show="user">
+          <li class="dropdown">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">{{user.name}} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="" ng-click="logout()">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="alert alert-danger" ng-show="error">{{error}}</div>
+  </div>
+  <div ng-view></div>
 </div>
 
+<hr class="hidden-xs hidden-sm"/>
 <footer>
-    <div class="container-fluid partners hidden-xs">
-        <div class="row">
-            <span class="col-sm-12 text-center">PARTNERS</span>
-        </div>
+  <div class="container-fluid recent-users hidden-xs hidden-sm">
+    <div class="row">
+      <span class="col-sm-12 text-center partner">RECENT USERS</span>
     </div>
-    <div class="container-fluid recent-users hidden-xs hidden-sm">
-        <div class="row">
-            <span class="col-sm-12 text-center">RECENT USERS</span>
-        </div>
+  </div>
+  <div class="credentials">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-6 text-center">CONTACT INFO</div>
+        <div class="col-md-4 col-sm-6 hidden-xs text-center">FUNDS</div>
+        <div class="col-md-4 hidden-xs hidden-sm text-center">SOCIAL</div>
+      </div>
     </div>
-    <div class="credentials">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-6 text-center">CONTACT INFO</div>
-                <div class="col-md-4 col-sm-6 hidden-xs text-center">FUNDS</div>
-                <div class="col-md-4 hidden-xs hidden-sm text-center">SOCIAL</div>
-            </div>
-        </div>
-    </div>
+  </div>
 </footer>
 
 <script src="webjars/requirejs/2.1.8/require.js" data-main="static/js/main"></script>

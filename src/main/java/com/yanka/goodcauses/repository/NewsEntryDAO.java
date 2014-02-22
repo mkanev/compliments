@@ -5,6 +5,6 @@ import com.yanka.goodcauses.model.NewsEntry;
 /**
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
-public interface NewsEntryDAO extends GenericEntityDAO<NewsEntry> {
+public interface NewsEntryDAO extends ContainingMediaEntityDAO<NewsEntry> {
 
 }

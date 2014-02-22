@@ -19,11 +19,6 @@ public abstract class GenericEntityManagerImpl<T extends GenericEntity> extends 
     }
 
     @Override
-    public List<T> getExistingEntityList() {
-        return genericDao.getExistingEntityList();
-    }
-
-    @Override
     public List<T> findByNamedQuery(String queryName, Object... parameters) {
         return genericDao.findByNamedQuery(queryName, parameters);
     }

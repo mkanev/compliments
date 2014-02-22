@@ -2,11 +2,15 @@ package com.yanka.goodcauses;
 
 public class JsonViews {
 
-    public static class User {
+    public static class Preview {
 
     }
 
-    public static class Admin extends User {
+    public static class Extended extends Preview {
+
+    }
+
+    public static class Admin extends Extended {
 
     }
 }

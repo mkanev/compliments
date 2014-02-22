@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
 @Service("newsEntryManager")
-public class NewsEntryManagerImpl extends GenericEntityManagerImpl<NewsEntry> implements NewsEntryManager {
+public class NewsEntryManagerImpl extends ContainingMediaEntityManagerImpl<NewsEntry> implements NewsEntryManager {
 
     private NewsEntryDAO newsEntryDao;
 

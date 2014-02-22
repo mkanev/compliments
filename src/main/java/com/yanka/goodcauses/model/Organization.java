@@ -1,44 +1,49 @@
 package com.yanka.goodcauses.model;
 
-import com.yanka.goodcauses.JsonViews;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
 @Entity
-public class Organization extends GenericEntity {
+public class Organization extends ContainingMediaEntity {
 
-    private String name;
+    public static final String FIELD_ORGANIZATION_TYPE = "organizationType";
+    @Lob
+    @Column(length = Integer.MAX_VALUE)
+    private String description;
     private String phone;
     private String email;
     private String site;
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<Address> addresses = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<Contact> contacts = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private Set<Address> addresses = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private Set<Contact> contacts = new HashSet<>();
     @Enumerated(EnumType.STRING)
     private OrganizationType organizationType;
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private Media logo;
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getPhone() {
@@ -66,11 +71,11 @@ public class Organization extends GenericEntity {
     }
 
     @JsonIgnore
-    public List<Address> getAddresses() {
+    public Set<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<Address> addresses) {
+    public void setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
     }
 
@@ -87,11 +92,11 @@ public class Organization extends GenericEntity {
     }
 
     @JsonIgnore
-    public List<Contact> getContacts() {
+    public Set<Contact> getContacts() {
         return contacts;
     }
 
-    public void setContacts(List<Contact> contacts) {
+    public void setContacts(Set<Contact> contacts) {
         this.contacts = contacts;
     }
 
@@ -101,6 +106,14 @@ public class Organization extends GenericEntity {
 
     public void setOrganizationType(OrganizationType organizationType) {
         this.organizationType = organizationType;
+    }
+
+    public Media getLogo() {
+        return logo;
+    }
+
+    public void setLogo(Media logo) {
+        this.logo = logo;
     }
 
     @Override

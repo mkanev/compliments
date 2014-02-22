@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
 @Repository
-public class NewsEntryDAOImpl extends GenericEntityDAOImpl<NewsEntry> implements NewsEntryDAO {
+public class NewsEntryDAOImpl extends ContainingMediaEntityDAOImpl<NewsEntry> implements NewsEntryDAO {
 
     public NewsEntryDAOImpl() {
         super(NewsEntry.class);

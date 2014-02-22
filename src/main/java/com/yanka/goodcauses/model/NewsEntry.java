@@ -2,10 +2,6 @@ package com.yanka.goodcauses.model;
 
 import com.google.common.base.Objects;
 
-import com.yanka.goodcauses.JsonViews;
-
-import org.codehaus.jackson.map.annotate.JsonView;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -17,25 +13,13 @@ import javax.persistence.Lob;
  * @author Philip W. Sorst <philip@sorst.net>
  */
 @Entity
-public class NewsEntry extends GenericEntity {
-
-    @Column(length = 1024, nullable = false)
-    private String title;
+public class NewsEntry extends ContainingMediaEntity {
 
     @Lob
     @Column(length = Integer.MAX_VALUE, nullable = false)
     private String content;
 
-
     public NewsEntry() {
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String caption) {
-        this.title = caption;
     }
 
     public String getContent() {
@@ -43,16 +27,15 @@ public class NewsEntry extends GenericEntity {
         return this.content;
     }
 
-
     public void setContent(String content) {
 
         this.content = content;
     }
 
-
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("title", title).add("content", content) + super.toString();
+        return Objects.toStringHelper(this)
+                   .add("content", content) + super.toString();
     }
 
     @Override

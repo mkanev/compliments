@@ -2,7 +2,7 @@ package com.yanka.goodcauses.rest.resources;
 
 import com.yanka.goodcauses.rest.TokenUtils;
 import com.yanka.goodcauses.service.UserManager;
-import com.yanka.goodcauses.transfer.UserTransfer;
+import com.yanka.goodcauses.transfer.UserTokenTransfer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,20 +38,20 @@ public class UserResource {
     @Path("authenticate")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public UserTransfer authenticate(@FormParam("username") String username, @FormParam("password") String password) {
+    public UserTokenTransfer authenticate(@FormParam("username") String username, @FormParam("password") String password) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authentication = this.authManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        Map<String, Boolean> roles = new HashMap<String, Boolean>();
-                /*
-                 * Reload user as password of authentication principal will be null after authorization and
-		 * password is needed for token generation
-		 */
+        Map<String, Boolean> roles = new HashMap<>();
+        /*
+         * Reload user as password of authentication principal will be null after authorization and
+         * password is needed for token generation
+         */
         UserDetails userDetails = userManager.loadUserByUsername(username);
         for (GrantedAuthority authority : userDetails.getAuthorities()) {
             roles.put(authority.toString(), Boolean.TRUE);
         }
-        return new UserTransfer(userDetails.getUsername(), roles, TokenUtils.createToken(userDetails));
+        return new UserTokenTransfer(userDetails.getUsername(), roles, TokenUtils.createToken(userDetails));
     }
 
 }

@@ -1,121 +1,128 @@
 define(['angular', 'app'], function (angular, app) {
-    'use strict';
+  'use strict';
 
-    return app.config([ '$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+  return app.config([ '$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 
-            $routeProvider.when('/create', {
-                templateUrl: 'static/partials/create.html',
-                controller: 'CreateController'
-            });
+      $routeProvider.when('/create', {
+        templateUrl: 'static/partials/create.html',
+        controller: 'NewsController'
+      });
 
-            $routeProvider.when('/edit/:id', {
-                templateUrl: 'static/partials/edit.html',
-                controller: 'EditController'
-            });
+      $routeProvider.when('/edit/:id', {
+        templateUrl: 'static/partials/edit.html',
+        controller: 'NewsController'
+      });
 
-            $routeProvider.when('/login', {
-                templateUrl: 'static/partials/login.html',
-                controller: 'LoginController'
-            });
+      $routeProvider.when('/read/:id', {
+        templateUrl: 'static/partials/record.html',
+        controller: 'NewsController'
+      });
 
-            $routeProvider.when('/mission', {
-                templateUrl: 'static/partials/mission.html'
-            });
+      $routeProvider.when('/login', {
+        templateUrl: 'static/partials/login.html',
+        controller: 'LoginController'
+      });
 
-            $routeProvider.when('/funds', {
-                templateUrl: 'static/partials/funds.html'
-            });
+      $routeProvider.when('/mission', {
+        templateUrl: 'static/partials/mission.html'
+      });
 
-            $routeProvider.when('/activity', {
-                templateUrl: 'static/partials/activity.html'
-            });
+      $routeProvider.when('/funds', {
+        templateUrl: 'static/partials/funds.html',
+        controller: 'OrganizationsController'
+      });
 
-            $routeProvider.when('/blog', {
-                templateUrl: 'static/partials/blog.html'
-            });
+      $routeProvider.when('/activity', {
+        templateUrl: 'static/partials/activity.html'
+      });
 
-            $routeProvider.when('/partners', {
-                templateUrl: 'static/partials/partners.html'
-            });
+      $routeProvider.when('/blog', {
+        templateUrl: 'static/partials/blog.html'
+      });
 
-            $routeProvider.when('/contact', {
-                templateUrl: 'static/partials/contact.html'
-            });
+//      $routeProvider.when('/partners', {
+//        templateUrl: 'static/partials/partners.html',
+//        controller: 'OrganizationsController'
+//      });
 
-            $routeProvider.otherwise({
-                                         templateUrl: 'static/partials/index.html'
-                                     });
+      $routeProvider.when('/contact', {
+        templateUrl: 'static/partials/contact.html'
+      });
 
-            $locationProvider.hashPrefix('!');
+      $routeProvider.otherwise({
+                                 templateUrl: 'static/partials/index.html'
+                               });
 
-            /* Intercept http errors */
-            var interceptor = function ($rootScope, $q, $location) {
+      $locationProvider.hashPrefix('!');
 
-                function success(response) {
-                    return response;
-                }
+      /* Intercept http errors */
+      var interceptor = function ($rootScope, $q, $location) {
 
-                function error(response) {
+        function success(response) {
+          return response;
+        }
 
-                    var status = response.status;
-                    var config = response.config;
-                    var method = config.method;
-                    var url = config.url;
+        function error(response) {
 
-                    if (status == 401) {
-                        $location.path("/login");
-                    } else {
-                        $rootScope.error = method + " on " + url + " failed with status " + status;
-                    }
+          var status = response.status;
+          var config = response.config;
+          var method = config.method;
+          var url = config.url;
 
-                    return $q.reject(response);
-                }
+          if (status == 401) {
+            $location.path("/login");
+          } else {
+            $rootScope.error = method + " on " + url + " failed with status " + status;
+          }
 
-                return function (promise) {
-                    return promise.then(success, error);
-                };
-            };
-            $httpProvider.responseInterceptors.push(interceptor);
+          return $q.reject(response);
+        }
 
-        }])
-        .run(function ($rootScope, $http, $location, $cookieStore, $templateCache, LoginService) {
+        return function (promise) {
+          return promise.then(success, error);
+        };
+      };
+      $httpProvider.responseInterceptors.push(interceptor);
 
-                 /* Reset error when a new view is loaded */
-                 $rootScope.$on('$viewContentLoaded', function () {
-                     delete $rootScope.error;
-                 });
+    }])
+    .run(function ($rootScope, $http, $location, $cookieStore, $templateCache, LoginService) {
 
-                 $rootScope.hasRole = function (role) {
+           /* Reset error when a new view is loaded */
+           $rootScope.$on('$viewContentLoaded', function () {
+             delete $rootScope.error;
+           });
 
-                     if ($rootScope.user === undefined) {
-                         return false;
-                     }
+           $rootScope.hasRole = function (role) {
 
-                     if ($rootScope.user.roles[role] === undefined) {
-                         return false;
-                     }
+             if ($rootScope.user === undefined) {
+               return false;
+             }
 
-                     return $rootScope.user.roles[role];
-                 };
+             if ($rootScope.user.roles[role] === undefined) {
+               return false;
+             }
 
-                 $rootScope.logout = function () {
-                     delete $rootScope.user;
-                     delete $http.defaults.headers.common['X-Auth-Token'];
-                     $cookieStore.remove('user');
-                     $location.path("/login");
-                 };
+             return $rootScope.user.roles[role];
+           };
 
-                 /* Try getting valid user from cookie or go to login page */
-                 /*var originalPath = $location.path();
-                  $location.path("/login");
-                  var user = $cookieStore.get('user');
-                  if (user !== undefined) {
-                  $rootScope.user = user;
-                  $http.defaults.headers.common['X-Auth-Token'] = user.token;
+           $rootScope.logout = function () {
+             delete $rootScope.user;
+             delete $http.defaults.headers.common['X-Auth-Token'];
+             $cookieStore.remove('user');
+             $location.path("/login");
+           };
 
-                  $location.path(originalPath);
-                  }*/
+           /* Try getting valid user from cookie or go to login page */
+           /*var originalPath = $location.path();
+            $location.path("/login");
+            var user = $cookieStore.get('user');
+            if (user !== undefined) {
+            $rootScope.user = user;
+            $http.defaults.headers.common['X-Auth-Token'] = user.token;
 
-             });
+            $location.path(originalPath);
+            }*/
+
+         });
 
 });

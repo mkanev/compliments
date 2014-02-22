@@ -36,8 +36,6 @@
 
     <bean id="unauthorizedEntryPoint" class="com.yanka.goodcauses.rest.UnauthorizedEntryPoint" />
 
-    <bean class="com.yanka.goodcauses.rest.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter">
-        <constructor-arg ref="userManager" />
-    </bean>
+    <bean class="com.yanka.goodcauses.rest.AuthenticationTokenProcessingFilter" id="authenticationTokenProcessingFilter"/>
 
 </beans>

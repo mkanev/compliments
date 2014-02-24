@@ -1,4 +1,4 @@
-define(['angular'], function (angular) {
+define(['angular', 'restangular'], function (angular) {
   'use strict';
 
   /* Services */
@@ -15,21 +15,28 @@ define(['angular'], function (angular) {
                );
              })
     .factory('NewsService', function ($resource) {
-               return $resource('rest/news/:id', {id: '@id'});
+               return $resource('rest/news/:id', {
+                 id: '@id',
+                 page: '@page',
+                 limit: '@limit',
+                 nav: '@nav'
+               });
              })
-    .factory('OrganizationsService', function ($resource) {
-               return $resource('rest/organization/:id', {id: '@id'},
-                                {
-                                  getFunds: {
-                                    method: 'GET',
-                                    url: 'rest/organization/funds',
-                                    isArray: true
-                                  },
-                                  getPartners: {
-                                    method: 'GET',
-                                    url: 'rest/organization/partners',
-                                    isArray: true
-                                  }
-                                });
-             });
+    .factory('FundsService', function ($resource) {
+               return $resource('rest/funds/:id', {id: '@id'});
+             })
+    .factory('PartnersService', function ($resource) {
+               return $resource('rest/partners/:id', {id: '@id'});
+             })
+    .factory('api', function (Restangular) {
+               Restangular.setBaseUrl('/rest');
+               return {
+                 news: {
+                   entries: function (query) {
+                     return Restangular.all("news").getList(query);
+                   }
+                 }
+               };
+             })
+  ;
 });

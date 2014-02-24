@@ -65,8 +65,7 @@ public class GenericDAOImpl<T extends BaseDBObject, PK extends Serializable> ext
     @Override
     @SuppressWarnings("unchecked")
     public List<T> getExistingEntityList() {
-        CriteriaSet criteriaSet = new CriteriaSet();
-        criteriaSet.filterDeleted();
+        CriteriaSet criteriaSet = getFilteredCriteriaSet();
         TypedQuery typedQuery = em.createQuery(criteriaSet.cq);
         return getResultList(typedQuery);
     }
@@ -208,6 +207,12 @@ public class GenericDAOImpl<T extends BaseDBObject, PK extends Serializable> ext
             }
         }
         return resultList.iterator().next();
+    }
+
+    protected CriteriaSet getFilteredCriteriaSet() {
+        CriteriaSet cs = new CriteriaSet();
+        cs.filterDeleted();
+        return cs;
     }
 
     /**

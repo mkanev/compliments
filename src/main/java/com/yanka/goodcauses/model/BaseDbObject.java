@@ -36,11 +36,11 @@ public abstract class BaseDBObject extends BaseObject implements Serializable {
         this.deleted = disabled;
     }
 
+    @JsonIgnore
     public boolean isBlank() {
         return id == null;
     }
 
-    @JsonView(JsonViews.Admin.class)
     public Long getId() {
         return id;
     }

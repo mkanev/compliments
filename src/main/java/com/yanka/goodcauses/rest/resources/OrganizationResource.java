@@ -16,32 +16,29 @@ import javax.ws.rs.core.MediaType;
 /**
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
-@Component
-@Path("/organization")
-public class OrganizationResource extends ContainingMediaEntityResource<Organization> {
+public abstract class OrganizationResource extends ContainingMediaEntityResource<Organization> {
 
     private OrganizationManager organizationManager;
 
-    @Autowired
     public OrganizationResource(OrganizationManager organizationManager) {
         super(organizationManager);
         this.organizationManager = organizationManager;
     }
 
-    @Path("/funds")
+    /*@Path("/funds")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String fundsList() throws IOException {
         logDebug("fundsList()");
         return getPreviewWriter().writeValueAsString(organizationManager.getFundsList());
-    }
+    }*/
 
-    @Path("/partners")
+    /*@Path("/partners")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String partnersList() throws IOException {
         logDebug("partnersList()");
         return getPreviewWriter().writeValueAsString(organizationManager.getPartnersList());
-    }
+    }*/
 
 }

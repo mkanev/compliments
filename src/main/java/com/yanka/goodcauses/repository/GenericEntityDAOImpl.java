@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  * {@inheritDoc}
@@ -72,6 +73,31 @@ public abstract class GenericEntityDAOImpl<T extends GenericEntity> extends Gene
             query.setMaxResults(pageSize);
         }
         return getResultList(query, parameters);
+    }
+
+    @Override
+    public List<T> getDateTimeOrderedEntityList() {
+        CriteriaSet cs = getFilteredCriteriaSet();
+        cs.cq.orderBy(cs.cb.asc(cs.r.get(T.FIELD_UPDATE_DATE)));
+        TypedQuery typedQuery = em.createQuery(cs.cq);
+        return getResultList(typedQuery);
+    }
+
+    @Override
+    public List<T> getReverseDateTimeOrderedEntityList() {
+        CriteriaSet cs = getFilteredCriteriaSet();
+        cs.cq.orderBy(cs.cb.desc(cs.r.get(T.FIELD_UPDATE_DATE)));
+        TypedQuery typedQuery = em.createQuery(cs.cq);
+        return getResultList(typedQuery);
+    }
+
+    @Override
+    public List<T> getLatestEntityList(int size) {
+        List<T> entityList = getReverseDateTimeOrderedEntityList();
+        if (CollectionUtils.isEmpty(entityList)) {
+            return null;
+        }
+        return entityList.subList(0, Math.max(0, Math.min(entityList.size(), size)));
     }
 
     /**

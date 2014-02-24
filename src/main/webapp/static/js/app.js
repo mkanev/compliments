@@ -7,7 +7,10 @@ define([
            'angular-resource',
            'angular-route',
            'angular-cookies',
-           'angular-truncate'
+           'angular-truncate',
+           'angular-ui-bootstrap',
+           'angular-ui-bootstrap-tpls',
+           'restangular'
        ], function (angular) {
     'use strict';
 
@@ -18,6 +21,9 @@ define([
             'ngCookies',
             'ngResource',
             'igTruncate',
+            'ui.bootstrap',
+            'ui.bootstrap.tpls',
+            'restangular',
             'exampleApp.controllers',
             'exampleApp.filters',
             'exampleApp.services',

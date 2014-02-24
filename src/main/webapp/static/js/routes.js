@@ -1,7 +1,7 @@
 define(['angular', 'app'], function (angular, app) {
   'use strict';
 
-  return app.config([ '$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+  return app.config([ '$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider, RestangularProvider) {
 
       $routeProvider.when('/create', {
         templateUrl: 'static/partials/create.html',
@@ -29,7 +29,7 @@ define(['angular', 'app'], function (angular, app) {
 
       $routeProvider.when('/funds', {
         templateUrl: 'static/partials/funds.html',
-        controller: 'OrganizationsController'
+        controller: 'FundsController'
       });
 
       $routeProvider.when('/activity', {
@@ -42,7 +42,7 @@ define(['angular', 'app'], function (angular, app) {
 
 //      $routeProvider.when('/partners', {
 //        templateUrl: 'static/partials/partners.html',
-//        controller: 'OrganizationsController'
+//        controller: 'PartnersController'
 //      });
 
       $routeProvider.when('/contact', {
@@ -83,7 +83,6 @@ define(['angular', 'app'], function (angular, app) {
         };
       };
       $httpProvider.responseInterceptors.push(interceptor);
-
     }])
     .run(function ($rootScope, $http, $location, $cookieStore, $templateCache, LoginService) {
 

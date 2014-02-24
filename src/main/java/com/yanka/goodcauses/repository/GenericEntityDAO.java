@@ -2,7 +2,6 @@ package com.yanka.goodcauses.repository;
 
 import com.yanka.goodcauses.model.GenericEntity;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,5 +14,11 @@ public interface GenericEntityDAO<T extends GenericEntity> extends GenericDAO<T,
     List<T> findByNamedQuery(String queryName, int resultLimit, Object... parameters);
 
     List<T> findByNamedQuery(String queryName, int start, int end, Object... parameters);
+
+    List<T> getDateTimeOrderedEntityList();
+
+    List<T> getReverseDateTimeOrderedEntityList();
+
+    List<T> getLatestEntityList(int size);
 
 }

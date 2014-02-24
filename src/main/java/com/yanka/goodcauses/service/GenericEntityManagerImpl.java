@@ -32,4 +32,19 @@ public abstract class GenericEntityManagerImpl<T extends GenericEntity> extends 
     public List<T> findByNamedQuery(String queryName, int start, int end, Object... parameters) {
         return genericDao.findByNamedQuery(queryName, start, end, parameters);
     }
+
+    @Override
+    public List<T> getDateTimeOrderedEntityList() {
+        return genericDao.getDateTimeOrderedEntityList();
+    }
+
+    @Override
+    public List<T> getReverseDateTimeOrderedEntityList() {
+        return genericDao.getReverseDateTimeOrderedEntityList();
+    }
+
+    @Override
+    public List<T> getLatestEntityList(int size) {
+        return genericDao.getLatestEntityList(size);
+    }
 }

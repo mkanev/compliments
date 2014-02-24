@@ -5,17 +5,23 @@ import com.yanka.goodcauses.common.LoggedClass;
 import com.yanka.goodcauses.model.BaseDBObject;
 import com.yanka.goodcauses.service.GenericManager;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -23,7 +29,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -37,14 +45,6 @@ public abstract class GenericResource<T extends BaseDBObject, PK extends Long> e
 
     public GenericResource(GenericManager<T, PK> genericManager) {
         this.genericManager = genericManager;
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String list() throws IOException {
-        logDebug("list()");
-        List<T> entities = this.genericManager.getExistingEntityList();
-        return getPreviewWriter().writeValueAsString(entities);
     }
 
     @POST

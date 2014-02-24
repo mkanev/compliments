@@ -17,4 +17,10 @@ public interface GenericEntityManager<T extends GenericEntity> extends GenericMa
     List<T> findByNamedQuery(String queryName, int resultLimit, Object... parameters);
 
     List<T> findByNamedQuery(String queryName, int start, int end, Object... parameters);
+
+    List<T> getDateTimeOrderedEntityList();
+
+    List<T> getReverseDateTimeOrderedEntityList();
+
+    List<T> getLatestEntityList(int size);
 }

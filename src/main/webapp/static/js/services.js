@@ -41,35 +41,83 @@ define(['angular', 'restangular'], function (angular) {
                  return data;
                });
                return {
-                 request: {
-                   getEntityList: function (path, query) {
-                     return Restangular.all(path).getList(query);
-                   },
-                   getEntity: function (path, entryId) {
-                     return Restangular.one(path, entryId).get();
-                   }
+                 getListEndpoint: function (path) {
+                   return Restangular.all(path);
+                 },
+                 getEntityEndpoint: function (path, entryId) {
+                   return Restangular.one(path, entryId);
                  }
                };
              })
-    .factory('api', function (genericApi) {
+    .factory('genericEntityApi', function (genericApi) {
+               return {
+                 getEntityList: function (path, query) {
+                   return genericApi.getListEndpoint(path).getList(query);
+                 },
+                 getEntity: function (path, entryId) {
+                   return genericApi.getEntityEndpoint(path, entryId).get();
+                 }
+               };
+             })
+    .factory('api', function (genericEntityApi) {
                return {
                  blog: {
                    getRecords: function (query) {
-                     return genericApi.request.getEntityList('news', query);
+                     return genericEntityApi.getEntityList('news', query);
                    },
                    getSingleRecord: function (entryId) {
-                     return genericApi.request.getEntity('news', entryId);
+                     return genericEntityApi.getEntity('news', entryId);
                    }
                  },
                  organizations: {
                    getFunds: function (query) {
-                     return genericApi.request.getEntityList('funds', query);
+                     return genericEntityApi.getEntityList('funds', query);
                    },
                    getPartners: function (query) {
-                     return genericApi.request.getEntityList('partners', query);
+                     return genericEntityApi.getEntityList('partners', query);
                    }
                  }
                }
+             })
+    .factory('authService', function ($rootScope, Restangular, genericApi) {
+               var user = {
+                 isAuthenticated: false,
+                 name: ''
+               };
+               $rootScope.user = user;
+               var authService = {};
+               authService.init = function (isAuthenticated, userName) {
+                 user.isAuthenticated = isAuthenticated;
+                 user.name = userName;
+               };
+               authService.isAuthenticated = function () {
+                 return user.isAuthenticated;
+               };
+               authService.login = function (loginModel) {
+                 var loginResult = genericApi.getListEndpoint('user').customPOST(loginModel, 'login');
+                 loginResult.then(function (result) {
+                   user.isAuthenticated = result.loginOk;
+                   if (result.loginOk) {
+                     user.name = loginModel.userName;
+                   }
+                 });
+                 return loginResult;
+               };
+               authService.logout = function () {
+                 return genericApi.getListEndpoint('user').customPOST(null, 'logout')
+                   .then(function (result) {
+                           user.isAuthenticated = false;
+                           user.name = '';
+                         });
+               };
+               authService.register = function (registerModel) {
+                 return genericApi.getListEndpoint('user').customPOST(registerModel, 'register');
+               };
+               authService.changePassword = function (changePasswordModel) {
+                 return genericApi.getListEndpoint('user').customPUT(changePasswordModel, 'changePassword');
+               };
+               return authService;
+
              })
   ;
 });

@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row" ng-show="hasRole('admin')">
+    <div class="col-md-4 col-sm-6 col-xs-12 pull-right">
+      <a href="#!/create" class="btn btn-success btn-block">Create</a>
+    </div>
+    <br/>
+  </div>
+  <div id="newsEntries" ng-controller="BlogController">
+    <div class="row" ng-show="mode=='full'">
+      <div class="col-sm-12 text-right hidden-xs">
+        <pagination total-items="entitiesCount" items-per-page="pageSize" page="criteria.page" max-size="maxSize" class="pagination-sm"
+                    boundary-links="false" rotate="false" on-select-page="selectPage(page)"></pagination>
+      </div>
+      <div class="col-xs-12 text-center visible-xs">
+        <pagination total-items="entitiesCount" items-per-page="pageSize" page="criteria.page" max-size="3" class="pagination-sm"
+                    boundary-links="true" rotate="true" on-select-page="selectPage(page)"></pagination>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="newsEntry in entities">
+        <div class="post">
+          <div class="post-img-content">
+            <img src="{{newsEntry.mediaPreview.url}}" class="img-responsive"/>
+            <span class="post-title"><b>{{newsEntry.name | truncate:32}}</b></span>
+          </div>
+          <div class="content">
+            <div class="author">
+              By <b>Executive</b> |
+              <time datetime="{{newsEntry.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}">{{newsEntry.updateDate | date : 'longDate'}}</time>
+            </div>
+
+            <div class="text-justify">{{newsEntry.content | truncate:128}}</div>
+
+            <div class="text-right">
+              <a href="#!/blog/read/{{newsEntry.id}}" class="btn btn-info">More</a>
+              <a href="#!/blog/edit/{{newsEntry.id}}" class="btn btn-warning" ng-show="hasRole('admin')">Edit</a>
+              <a ng-click="deleteEntry(newsEntry)" class="btn btn-danger" ng-show="hasRole('admin')">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-show="mode=='full'">
+      <div class="col-sm-12 text-right hidden-xs">
+        <pagination total-items="entitiesCount" items-per-page="pageSize" page="criteria.page" max-size="maxSize" class="pagination-sm"
+                    boundary-links="false" rotate="false" on-select-page="selectPage(page)"></pagination>
+      </div>
+      <div class="col-xs-12 text-center visible-xs">
+        <pagination total-items="entitiesCount" items-per-page="pageSize" page="criteria.page" max-size="3" class="pagination-sm"
+                    boundary-links="true" rotate="true" on-select-page="selectPage(page)"></pagination>
+      </div>
+    </div>
+  </div>
+</div>

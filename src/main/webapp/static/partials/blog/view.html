@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="#!/blog">Blog</a></li>
+        <li class="active">Record #{{newsEntry.id}} from {{newsEntry.updateDate | date : 'longDate'}}</li>
+      </ol>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      {{newsEntry.name}}
+    </div>
+  </div>
+</div>

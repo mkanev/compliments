@@ -4,18 +4,28 @@ define(['angular', 'app'], function (angular, app) {
   return app.config([ '$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider, RestangularProvider) {
 
       $routeProvider.when('/blog/create', {
-        templateUrl: 'static/partials/create.html',
+        templateUrl: 'static/partials/blog/edit.html',
         controller: 'BlogRecordController'
       });
 
       $routeProvider.when('/blog/edit/:id', {
-        templateUrl: 'static/partials/edit.html',
-        controller: 'BlogRecordController'
+        templateUrl: 'static/partials/blog/edit.html',
+        controller: 'BlogRecordController',
+        resolve: {
+          entity: function($route, api) {
+            return api.blog.getSingleRecord($route.current.params.id);
+          }
+        }
       });
 
       $routeProvider.when('/blog/read/:id', {
-        templateUrl: 'static/partials/record.html',
-        controller: 'BlogRecordController'
+        templateUrl: 'static/partials/blog/view.html',
+        controller: 'BlogRecordController',
+        resolve: {
+          entity: function($route, api) {
+            return api.blog.getSingleRecord($route.current.params.id);
+          }
+        }
       });
 
       $routeProvider.when('/login', {
@@ -39,11 +49,6 @@ define(['angular', 'app'], function (angular, app) {
       $routeProvider.when('/blog', {
         templateUrl: 'static/partials/blog.html'
       });
-
-//      $routeProvider.when('/partners', {
-//        templateUrl: 'static/partials/partners.html',
-//        controller: 'PartnersController'
-//      });
 
       $routeProvider.when('/contact', {
         templateUrl: 'static/partials/contact.html'

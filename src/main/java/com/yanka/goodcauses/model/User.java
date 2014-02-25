@@ -28,9 +28,13 @@ public class User extends Person implements UserDetails {
     @Pattern(regexp = "[a-zA-Z0-9._-]+")
     private String username;
     private String password;
+    private boolean expired;
+    private boolean locked;
+    private boolean credentialsExpired;
+    private boolean enabled = true;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<String> roles = new HashSet<String>();
+    private Set<String> roles = new HashSet<>();
 
     public User() {
     }
@@ -49,7 +53,6 @@ public class User extends Person implements UserDetails {
         this.username = username;
     }
 
-    @Override
     @JsonIgnore
     public String getPassword() {
         return this.password;
@@ -72,13 +75,13 @@ public class User extends Person implements UserDetails {
     }
 
     @Override
-    @JsonView(JsonViews.Admin.class)
+    @JsonView(JsonViews.Extended.class)
     public String getFirstName() {
         return super.getFirstName();
     }
 
     @Override
-    @JsonView(JsonViews.Admin.class)
+    @JsonView(JsonViews.Extended.class)
     public String getLastName() {
         return super.getLastName();
     }
@@ -90,24 +93,31 @@ public class User extends Person implements UserDetails {
     }
 
     @Override
-    @JsonView(JsonViews.Admin.class)
+    @JsonView(JsonViews.Extended.class)
     public String getEmail() {
         return super.getEmail();
     }
 
     @Override
-    @JsonView(JsonViews.Admin.class)
+    @JsonView(JsonViews.Extended.class)
     public String getCellPhone() {
         return super.getCellPhone();
     }
 
     @Override
-    @JsonView(JsonViews.Admin.class)
+    @JsonView(JsonViews.Extended.class)
     public Date getBirthday() {
         return super.getBirthday();
     }
 
     @Override
+    @JsonView(JsonViews.Extended.class)
+    public String getFullName() {
+        return super.getFullName();
+    }
+
+    @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<String> roles = this.getRoles();
         if (roles == null) {
@@ -121,23 +131,43 @@ public class User extends Person implements UserDetails {
     }
 
     @Override
+    @JsonView(JsonViews.Extended.class)
     public boolean isAccountNonExpired() {
-        return true;
+        return !expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 
     @Override
+    @JsonView(JsonViews.Extended.class)
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 
     @Override
+    @JsonView(JsonViews.Extended.class)
     public boolean isCredentialsNonExpired() {
-        return true;
+        return !credentialsExpired;
+    }
+
+    public void setCredentialsExpired(boolean credentialsExpired) {
+        this.credentialsExpired = credentialsExpired;
     }
 
     @Override
+    @JsonView(JsonViews.Extended.class)
     public boolean isEnabled() {
-        return true;
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

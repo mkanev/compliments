@@ -25,16 +25,22 @@ define(['jquery', 'angular', 'restangular', 'services'], function ($, angular) {
                   };
                   $scope.selectPage(1);
                 })
-    .controller('BlogRecordController', function ($scope, $routeParams, api) {
-                  $scope.loadEntity = function (entryId) {
-                    return api.blog.getSingleRecord(entryId).then(function (data) {
-                      $scope.newsEntry = data;
+    .controller('BlogRecordController', function ($scope, $location, Restangular, api, entity) {
+                  var original = entity;
+                  $scope.newsEntry = Restangular.copy(original);
+                  $scope.isBlank = function () {
+                    return angular.equals(original, $scope.newsEntry);
+                  };
+                  $scope.destroy = function () {
+                    original.remove().then(function () {
+                      $location.path('#!/blog');
                     });
                   };
-                  if ($routeParams.id) {
-                    $scope.loadEntity($routeParams.id);
-                  }
-                  /* TODO: support save and delete */
+                  $scope.save = function () {
+                    $scope.newsEntry.put().then(function () {
+                      $location.path('#!/blog');
+                    });
+                  };
                 })
     .controller('FundsController', function ($scope, $routeParams, api) {
                   api.organizations.getFunds().then(function (data) {

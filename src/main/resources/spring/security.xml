@@ -29,6 +29,7 @@
         <security:custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER" />
         <security:intercept-url pattern="/rest/user/authenticate" access="permitAll" />
         <!--<security:intercept-url method="GET" pattern="/rest/news/**" access="hasRole('user')" />-->
+        <security:intercept-url method="GET" pattern="/rest/user/**" access="isAuthenticated()" />
         <security:intercept-url method="PUT" pattern="/rest/**" access="hasRole('admin')" />
         <security:intercept-url method="POST" pattern="/rest/**" access="hasRole('admin')" />
         <security:intercept-url method="DELETE" pattern="/rest/**" access="hasRole('admin')" />

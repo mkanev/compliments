@@ -28,15 +28,48 @@ define(['angular', 'restangular'], function (angular) {
     .factory('PartnersService', function ($resource) {
                return $resource('rest/partners/:id', {id: '@id'});
              })
-    .factory('api', function (Restangular) {
+    .factory('genericApi', function (Restangular) {
                Restangular.setBaseUrl('/rest');
+               Restangular.addResponseInterceptor(function (data, operation) {
+                 if (operation === 'getList' && !_.isArray(data)) {
+                   var newResponse = data['entries'];
+                   newResponse.entitiesCount = data['totalCount'];
+                   newResponse.pageSize = data['pageSize'];
+                   newResponse.pagesCount = data['pageCount'];
+                   return newResponse;
+                 }
+                 return data;
+               });
                return {
-                 news: {
-                   entries: function (query) {
-                     return Restangular.all("news").getList(query);
+                 request: {
+                   getEntityList: function (path, query) {
+                     return Restangular.all(path).getList(query);
+                   },
+                   getEntity: function (path, entryId) {
+                     return Restangular.one(path, entryId).get();
                    }
                  }
                };
+             })
+    .factory('api', function (genericApi) {
+               return {
+                 blog: {
+                   getRecords: function (query) {
+                     return genericApi.request.getEntityList('news', query);
+                   },
+                   getSingleRecord: function (entryId) {
+                     return genericApi.request.getEntity('news', entryId);
+                   }
+                 },
+                 organizations: {
+                   getFunds: function (query) {
+                     return genericApi.request.getEntityList('funds', query);
+                   },
+                   getPartners: function (query) {
+                     return genericApi.request.getEntityList('partners', query);
+                   }
+                 }
+               }
              })
   ;
 });

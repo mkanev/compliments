@@ -3,66 +3,49 @@ define(['jquery', 'angular', 'restangular', 'services'], function ($, angular) {
 
   /* Controllers */
   return angular.module('exampleApp.controllers', ['exampleApp.services'])
-    .controller('NewsController2', ['$scope', '$routeParams', '$location', 'NewsService', function ($scope, $routeParams, $location, NewsService) {
-      $scope.currentPage = 1;
-      $scope.entities = NewsService.query({page: $scope.currentPage, limit: 6});
-      $scope.totalCount = $scope.entities.length;
-      $scope.$watch('currentPage', function (newValue) {
-        $scope.entities = NewsService.query({page: newValue, limit: 6});
-      });
-
-      $scope.newsEntry = $routeParams.id ? NewsService.get({id: $routeParams.id}) : new NewsService();
-
-      $scope.deleteEntry = function (newsEntry) {
-        newsEntry.$remove(function () {
-          $scope.pageData = NewsService.get();
-        });
-      };
-
-      $scope.save = function () {
-        $scope.newsEntry.$save(function () {
-          $location.path('/');
-        });
-      };
-
-      /*$scope.goToPage = function (num) {
-        $scope.pageData = NewsService.get({page: num});
-      };
-
-      $scope.next = function () {
-        $scope.pageData = NewsService.get({nav: 'next'});
-      };
-
-      $scope.prev = function () {
-        $scope.pageData = NewsService.get({nav: 'prev'});
-      };*/
-    }])
-    .controller('NewsController', function($scope, api){
-                           $scope.criteria = {
-                             page: 1,
-                             limit: 10
-                           };
-                           $scope.fetchResult = function() {
-                             return api.news.entries($scope.criteria).then(function(data){
-                               console.log(data);
-                             }, function(){
-                               console.log("nothing");
-                             });
-                           };
-                           $scope.selectPage = function (page) {
-                             $scope.criteria.pageNumber = page;
-                             $scope.fetchResult();
-                           };
-                           $scope.selectPage(1);
-                         })
-    .controller('FundsController', ['$scope', '$routeParams', '$location', 'FundsService', function ($scope, $routeParams, $location, FundsService) {
-      $scope.pageData = FundsService.get();
-      $scope.organization = $routeParams.id ? FundsService.get({id: $routeParams.id}) : new FundsService();
-    }])
-    .controller('PartnersController', ['$scope', '$routeParams', '$location', 'PartnersService', function ($scope, $routeParams, $location, PartnersService) {
-      $scope.pageData = PartnersService.get();
-      $scope.organization = $routeParams.id ? PartnersService.get({id: $routeParams.id}) : new PartnersService();
-    }])
+    .controller('BlogController', function ($scope, $routeParams, api) {
+                  $scope.criteria = {
+                    page: 1,
+                    limit: 6
+                  };
+                  $scope.maxSize = 7;
+                  $scope.fetchResult = function () {
+                    return api.blog.getRecords($scope.criteria).then(function (data) {
+                      $scope.entities = data;
+                      $scope.entitiesCount = data.entitiesCount;
+                      $scope.pageSize = data.pageSize;
+                      $scope.pagesCount = data.pagesCount;
+                    }, function (response) {
+                      console.log("Error with status code", response.status);
+                    });
+                  };
+                  $scope.selectPage = function (page) {
+                    $scope.criteria.page = page;
+                    $scope.fetchResult();
+                  };
+                  $scope.selectPage(1);
+                })
+    .controller('BlogRecordController', function ($scope, $routeParams, api) {
+                  $scope.loadEntity = function (entryId) {
+                    return api.blog.getSingleRecord(entryId).then(function (data) {
+                      $scope.newsEntry = data;
+                    });
+                  };
+                  if ($routeParams.id) {
+                    $scope.loadEntity($routeParams.id);
+                  }
+                  /* TODO: support save and delete */
+                })
+    .controller('FundsController', function ($scope, $routeParams, api) {
+                  api.organizations.getFunds().then(function (data) {
+                    $scope.entities = data;
+                  });
+                })
+    .controller('PartnersController', function ($scope, $routeParams, api) {
+                  api.organizations.getPartners().then(function (data) {
+                    $scope.entities = data;
+                  });
+                })
     .controller('LoginController',
                 ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'LoginService',
                  function ($scope, $rootScope, $location, $http, $cookieStore, LoginService) {
@@ -75,9 +58,4 @@ define(['jquery', 'angular', 'restangular', 'services'], function ($, angular) {
                      });
                    };
                  }])
-    .controller('NavigationController', ['$scope', '$location', function ($scope, $location) {
-      $scope.isCurrentPath = function (viewLocation) {
-        return viewLocation === $location.path();
-      };
-    }]);
 });

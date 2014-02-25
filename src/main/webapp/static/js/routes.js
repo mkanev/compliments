@@ -3,19 +3,19 @@ define(['angular', 'app'], function (angular, app) {
 
   return app.config([ '$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider, RestangularProvider) {
 
-      $routeProvider.when('/create', {
+      $routeProvider.when('/blog/create', {
         templateUrl: 'static/partials/create.html',
-        controller: 'NewsController'
+        controller: 'BlogRecordController'
       });
 
-      $routeProvider.when('/edit/:id', {
+      $routeProvider.when('/blog/edit/:id', {
         templateUrl: 'static/partials/edit.html',
-        controller: 'NewsController'
+        controller: 'BlogRecordController'
       });
 
-      $routeProvider.when('/read/:id', {
+      $routeProvider.when('/blog/read/:id', {
         templateUrl: 'static/partials/record.html',
-        controller: 'NewsController'
+        controller: 'BlogRecordController'
       });
 
       $routeProvider.when('/login', {
@@ -109,6 +109,10 @@ define(['angular', 'app'], function (angular, app) {
              delete $http.defaults.headers.common['X-Auth-Token'];
              $cookieStore.remove('user');
              $location.path("/login");
+           };
+
+           $rootScope.isCurrentPath = function (viewLocation) {
+             return viewLocation === $location.path();
            };
 
            /* Try getting valid user from cookie or go to login page */

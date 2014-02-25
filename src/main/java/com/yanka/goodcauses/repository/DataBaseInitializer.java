@@ -51,7 +51,7 @@ public class DataBaseInitializer {
         adminUser.addRole("admin");
         userManager.save(adminUser);
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 125; i++) {
             NewsEntry newsEntry = new NewsEntry();
             newsEntry.setName("This is example content " + i);
             newsEntry.setDeleted(i % 5 == 0);
@@ -61,7 +61,7 @@ public class DataBaseInitializer {
                 + "pharetra eros sodales. Nulla sodales molestie congue. Pellentesque luctus elit eget arcu bibendum, a fringilla diam tempor. Fusce id interdum orci, sed ultrices "
                 + "mauris. Morbi ultricies enim ac enim fermentum pretium. Quisque tristique nisl tortor, vel dignissim augue dictum vel.");
             for (int j = 0; j < i % 3 + 1; j++) {
-                newsEntry.addMedia(buildSampleMedia(j, 500, 300, null));
+                newsEntry.addMedia(buildSampleMedia(j, 1500, 900, null));
             }
             newsEntryManager.save(newsEntry);
         }

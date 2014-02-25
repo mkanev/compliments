@@ -9,7 +9,6 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PagedListHolder;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public abstract class GenericEntityResource<T extends GenericEntity> extends Gen
                 return new PagedListHolder<>(CollectionUtils.isEmpty(result) ? Collections.<T>emptyList() : result);
             }
         });
-        return getPreviewWriter().writeValueAsString(/*new PagedResponseTransfer<>(*/pagedListHolder.getPageList()/*)*/);
+        return getPreviewWriter().writeValueAsString(new PagedResponseTransfer<>(pagedListHolder/*.getPageList()*/));
     }
 
     protected PagedListHolder<T> configurePagedListHolder(Integer page, String nav, Integer limit,

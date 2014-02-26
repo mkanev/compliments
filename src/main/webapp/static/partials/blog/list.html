@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row" ng-show="hasRole('admin')">
     <div class="col-md-4 col-sm-6 col-xs-12 pull-right">
-      <a href="#!/create" class="btn btn-success btn-block">Create</a>
+      <a href="#!/blog/create" class="btn btn-success btn-block">Create</a>
+      <br/>
     </div>
-    <br/>
   </div>
   <div id="newsEntries" ng-controller="BlogController">
     <div class="row" ng-show="mode=='full'">
@@ -25,11 +25,11 @@
           </div>
           <div class="content">
             <div class="author">
-              By <b>Executive</b> |
+              By <b>{{newsEntry.author.fullName}}</b> |
               <time datetime="{{newsEntry.updateDate | date : 'yyyy-MM-dd HH:mm:ss'}}">{{newsEntry.updateDate | date : 'longDate'}}</time>
             </div>
 
-            <div class="text-justify">{{newsEntry.content | truncate:128}}</div>
+            <div class="text-justify" style="min-height: 5em;">{{newsEntry.content | truncate:128}}</div>
 
             <div class="text-right">
               <a href="#!/blog/read/{{newsEntry.id}}" class="btn btn-info">More</a>

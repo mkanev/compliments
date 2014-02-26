@@ -3,14 +3,14 @@ define(['jquery', 'angular', 'restangular', 'services'], function ($, angular) {
 
   /* Controllers */
   return angular.module('exampleApp.controllers', ['exampleApp.services'])
-    .controller('BlogController', function ($scope, $routeParams, api) {
+    .controller('BlogController', function ($scope, API) {
                   $scope.criteria = {
                     page: 1,
                     limit: 6
                   };
                   $scope.maxSize = 7;
                   $scope.fetchResult = function () {
-                    return api.blog.getRecords($scope.criteria).then(function (data) {
+                    return API.blog.getRecords($scope.criteria).then(function (data) {
                       $scope.entities = data;
                       $scope.entitiesCount = data.entitiesCount;
                       $scope.pageSize = data.pageSize;
@@ -25,7 +25,7 @@ define(['jquery', 'angular', 'restangular', 'services'], function ($, angular) {
                   };
                   $scope.selectPage(1);
                 })
-    .controller('BlogRecordController', function ($scope, $location, Restangular, api, entity) {
+    .controller('EditRecordController', function ($scope, $location, Restangular, entity) {
                   var original = entity;
                   $scope.newsEntry = Restangular.copy(original);
                   $scope.isBlank = function () {
@@ -33,35 +33,35 @@ define(['jquery', 'angular', 'restangular', 'services'], function ($, angular) {
                   };
                   $scope.destroy = function () {
                     original.remove().then(function () {
-                      $location.path('#!/blog');
+                      $location.path('/blog');
                     });
                   };
                   $scope.save = function () {
                     $scope.newsEntry.put().then(function () {
-                      $location.path('#!/blog');
+                      $location.path('/blog');
                     });
                   };
                 })
-    .controller('FundsController', function ($scope, $routeParams, api) {
-                  api.organizations.getFunds().then(function (data) {
+    .controller('CreateRecordController', function ($scope, $location, API) {
+                  $scope.save = function () {
+                    API.blog.getResource().post($scope.newsEntry).then(function (record) {
+                      $location.path('/blog/read/' + record.id);
+                    });
+                  };
+                })
+    .controller('FundsController', function ($scope, API) {
+                  API.organizations.getFunds().then(function (data) {
                     $scope.entities = data;
                   });
                 })
-    .controller('PartnersController', function ($scope, $routeParams, api) {
-                  api.organizations.getPartners().then(function (data) {
+    .controller('PartnersController', function ($scope, API) {
+                  API.organizations.getPartners().then(function (data) {
                     $scope.entities = data;
                   });
                 })
-    .controller('LoginController',
-                ['$scope', '$rootScope', '$location', '$http', '$cookieStore', 'LoginService',
-                 function ($scope, $rootScope, $location, $http, $cookieStore, LoginService) {
-                   $scope.login = function () {
-                     LoginService.authenticate($.param({username: $scope.username, password: $scope.password}), function (user) {
-                       $rootScope.user = user;
-                       $http.defaults.headers.common['X-Auth-Token'] = user.token;
-                       $cookieStore.put('user', user);
-                       $location.path("/");
-                     });
-                   };
-                 }])
+    .controller('LoginController', function ($scope, AuthService) {
+                  $scope.login = function () {
+                    AuthService.login($.param({username: $scope.username, password: $scope.password}));
+                  };
+                })
 });

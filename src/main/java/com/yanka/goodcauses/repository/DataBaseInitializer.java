@@ -14,6 +14,7 @@ import com.yanka.goodcauses.service.UserManager;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 
@@ -42,19 +43,30 @@ public class DataBaseInitializer {
     }
 
     public void initDataBase() {
-        User userUser = new User("User", "User", "User", Calendar.getInstance().getTime(), "example@email.me", "+18005554935", "user", passwordEncoder.encode("user"));
+        User adminUser = initUsers();
+        initBlogRecords(adminUser);
+        initOrganizations();
+    }
+
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    private User initUsers() {
+        User userUser = new User("User", "User", Calendar.getInstance().getTime(), "example@email.me", "+18005554935", "user", passwordEncoder.encode("user"));
         userUser.addRole("user");
         userManager.save(userUser);
 
-        User adminUser = new User("Admin", "Admin", "Admin", Calendar.getInstance().getTime(), "example@email.me", "+18005554935", "admin", passwordEncoder.encode("admin"));
+        User adminUser = new User("Executive", "Chief", Calendar.getInstance().getTime(), "example@email.me", "+18005554935", "admin", passwordEncoder.encode("admin"));
         adminUser.addRole("user");
         adminUser.addRole("admin");
-        userManager.save(adminUser);
+        return userManager.save(adminUser);
+    }
 
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    private void initBlogRecords(User adminUser) {
         for (int i = 0; i < 125; i++) {
             NewsEntry newsEntry = new NewsEntry();
             newsEntry.setName("This is example content " + i);
             newsEntry.setDeleted(i % 5 == 0);
+            newsEntry.setAuthor(adminUser);
             newsEntry.setContent(
                 "Phasellus euismod fermentum urna non vehicula. Ut massa nulla, tincidunt sed accumsan nec, imperdiet non tellus. Praesent non elit vehicula, malesuada eros ut, "
                 + "pulvinar urna. Morbi condimentum volutpat elit et tincidunt. In cursus purus sed dapibus condimentum. Vestibulum consequat velit non arcu tincidunt, dignissim "
@@ -65,7 +77,10 @@ public class DataBaseInitializer {
             }
             newsEntryManager.save(newsEntry);
         }
+    }
 
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    private void initOrganizations() {
         for (int i = 0; i < 15; i++) {
             Organization org = new Organization();
             org.setName("Sample organization " + i);

@@ -24,7 +24,7 @@ public class Person extends GenericEntity {
     private String firstName;
     @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(name = "patronymic", nullable = false)
+    @Column(name = "patronymic")
     private String patronymic;
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -37,10 +37,9 @@ public class Person extends GenericEntity {
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String patronymic, Date birthday, String email, String cellPhone) {
+    public Person(String firstName, String lastName, Date birthday, String email, String cellPhone) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.patronymic = patronymic;
         this.birthday = birthday;
         this.email = email;
         this.cellPhone = cellPhone;

@@ -25,20 +25,4 @@ public abstract class OrganizationResource extends ContainingMediaEntityResource
         this.organizationManager = organizationManager;
     }
 
-    /*@Path("/funds")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String fundsList() throws IOException {
-        logDebug("fundsList()");
-        return getPreviewWriter().writeValueAsString(organizationManager.getFundsList());
-    }*/
-
-    /*@Path("/partners")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String partnersList() throws IOException {
-        logDebug("partnersList()");
-        return getPreviewWriter().writeValueAsString(organizationManager.getPartnersList());
-    }*/
-
 }

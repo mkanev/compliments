@@ -41,7 +41,7 @@ public class ContainingMediaEntity extends NamedEntity {
                 return media;
             }
         }
-        return MediaFactory.getInstance().buildPlaceholderImage(300, 200);
+        return MediaFactory.getInstance().buildPlaceholderImage(1500, 900);
     }
 
     @Override

@@ -14,9 +14,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Pattern;
 
 
@@ -32,15 +34,16 @@ public class User extends Person implements UserDetails {
     private boolean locked;
     private boolean credentialsExpired;
     private boolean enabled = true;
-
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private Set<NewsEntry> records = new HashSet<>();
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles = new HashSet<>();
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String patronymic, Date birthday, String email, String cellPhone, String username, String password) {
-        super(firstName, lastName, patronymic, birthday, email, cellPhone);
+    public User(String firstName, String lastName, Date birthday, String email, String cellPhone, String username, String password) {
+        super(firstName, lastName,  birthday, email, cellPhone);
         this.username = username;
         this.password = password;
     }
@@ -111,9 +114,18 @@ public class User extends Person implements UserDetails {
     }
 
     @Override
-    @JsonView(JsonViews.Extended.class)
+    @JsonView(JsonViews.Preview.class)
     public String getFullName() {
         return super.getFullName();
+    }
+
+    @JsonView(JsonViews.Extended.class)
+    public Set<NewsEntry> getRecords() {
+        return records;
+    }
+
+    public void setRecords(Set<NewsEntry> records) {
+        this.records = records;
     }
 
     @Override

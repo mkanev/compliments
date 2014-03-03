@@ -50,7 +50,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
-    <bean id="dataBaseInitializer" class="com.yanka.goodcauses.repository.DataBaseInitializer" init-method="initDataBase">
+    <!--<bean id="dataBaseInitializer" class="com.yanka.goodcauses.repository.DataBaseInitializer" init-method="initDataBase">
         <constructor-arg ref="passwordEncoder" />
-    </bean>
+    </bean>-->
 </beans>

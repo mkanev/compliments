@@ -1,10 +1,10 @@
 package com.yanka.goodcauses.repository;
 
-import com.yanka.goodcauses.model.Comment;
+import com.yanka.goodcauses.model.Compliment;
 
 /**
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
-public interface CommentDAO extends GenericEntityDAO<Comment> {
+public interface ComplimentDAO extends GenericEntityDAO<Compliment> {
 
 }

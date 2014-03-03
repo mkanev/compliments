@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.dontdrinkandroot.example</groupId>
-    <artifactId>angular-rest-springsecurity</artifactId>
+    <groupId>com.waveaccess</groupId>
+    <artifactId>compliments</artifactId>
     <version>0.2.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -10,7 +10,7 @@
         <developer>
             <id>mkanev</id>
             <name>Maksim Kanev</name>
-            <email>maksim.kanev@gmail.com</email>
+            <email>maksim.kanev@waveaccess.ru</email>
             <roles>
                 <role>Software Engineer</role>
             </roles>
@@ -30,9 +30,9 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:git:https://github.com/mkanev/good-causes-server.git</connection>
-        <developerConnection>scm:git:https://github.com/mkanev/good-causes-server.git</developerConnection>
-        <url>https://github.com/mkanev/good-causes-server</url>
+        <connection>scm:git:https://github.com/mkanev/compliments.git</connection>
+        <developerConnection>scm:git:https://github.com/mkanev/compliments.git</developerConnection>
+        <url>https://github.com/mkanev/compliments</url>
     </scm>
 
     <repositories>

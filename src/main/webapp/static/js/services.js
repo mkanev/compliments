@@ -47,23 +47,9 @@ define(['angular', 'restangular'], function (angular) {
              })
     .factory('API', function (GenericApi, GenericEntityApi) {
                return {
-                 blog: {
-                   getResource: function () {
-                     return GenericApi.getEndpoint('news');
-                   },
+                 compliment: {
                    getRecords: function (query) {
-                     return GenericEntityApi.getEntityList('news', query);
-                   },
-                   getSingleRecord: function (entryId) {
-                     return GenericEntityApi.getEntity('news', entryId);
-                   }
-                 },
-                 organizations: {
-                   getFunds: function (query) {
-                     return GenericEntityApi.getEntityList('funds', query);
-                   },
-                   getPartners: function (query) {
-                     return GenericEntityApi.getEntityList('partners', query);
+                     return GenericEntityApi.getEntityList('compliment', query);
                    }
                  }
                }

@@ -45,33 +45,38 @@ public abstract class GenericEntityResource<T extends GenericEntity> extends Gen
         @QueryParam("limit") Integer pageSize
     ) throws IOException {
         logDebug("list(%d,%s,%d)", page, nav, pageSize);
-        PagedListHolder<T> pagedListHolder = configurePagedListHolder(page, nav, pageSize, new ResourceCallback<T>() {
-
-            @Override
-            public PagedListHolder<T> invokeCreate() {
-                List<T> result = getEntityList();
-                return new PagedListHolder<>(CollectionUtils.isEmpty(result) ? Collections.<T>emptyList() : result);
-            }
-        });
-        return getPreviewWriter().writeValueAsString(new PagedResponseTransfer<>(pagedListHolder/*.getPageList()*/));
-    }
-
-    protected PagedListHolder<T> configurePagedListHolder(Integer page, String nav, Integer limit,
-                                                     ResourceCallback<T> createCall) {
-
         @SuppressWarnings("unchecked")
         PagedListHolder<T> pagedListHolder = (PagedListHolder<T>) servletRequest.getSession().getAttribute(getClass().getName() + "_" + NODE_LIST_MODEL_PAGE);
+        if (pagedListHolder == null || pagedListHolder.isLastPage()) {
+            pagedListHolder = createPagedListHolder(new ResourceCallback<T>() {
+
+                @Override
+                public PagedListHolder<T> invokeCreate() {
+                    List<T> result = getEntityList();
+                    return new PagedListHolder<>(CollectionUtils.isEmpty(result) ? Collections.<T>emptyList() : result);
+                }
+            });
+        }
+        configurePagedListHolder(pagedListHolder, page, nav, pageSize);
+        return getPreviewWriter().writeValueAsString(new PagedResponseTransfer<>(pagedListHolder));
+    }
+
+    protected PagedListHolder<T> createPagedListHolder(ResourceCallback<T> createCall) {
+        PagedListHolder<T> pagedListHolder = createCall.invokeCreate();
+        MutableSortDefinition sort = (MutableSortDefinition) pagedListHolder.getSort();
+        sort.setProperty(T.FIELD_UPDATE_DATE);
+        sort.setIgnoreCase(false);
+        sort.setAscending(true);
+        pagedListHolder.resort();
+        logDebug("pagedListHolder created");
+        return pagedListHolder;
+    }
+
+    protected PagedListHolder<T> configurePagedListHolder(PagedListHolder<T> pagedListHolder, Integer page, String nav, Integer limit) {
 
         if (pagedListHolder == null) {
-            pagedListHolder = createCall.invokeCreate();
-
-            MutableSortDefinition sort = (MutableSortDefinition) pagedListHolder.getSort();
-            sort.setProperty(T.FIELD_UPDATE_DATE);
-            sort.setIgnoreCase(false);
-            sort.setAscending(false);
-            pagedListHolder.resort();
-
-            logDebug("pagedListHolder created");
+            logError("pagedListHolder not instantiated!");
+            return null;
         }
         pagedListHolder.setPageSize(limit == null ? DEFAULT_PAGE_SIZE : limit);
         if (nav != null) {

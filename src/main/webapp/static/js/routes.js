@@ -3,54 +3,6 @@ define(['angular', 'app'], function (angular, app) {
 
   return app.config(function ($routeProvider, $locationProvider, RestangularProvider) {
 
-    $routeProvider
-      .when('/blog/create', {
-              templateUrl: 'static/partials/blog/edit.html',
-              controller: 'CreateRecordController'
-            })
-      .when('/blog/edit/:id', {
-              templateUrl: 'static/partials/blog/edit.html',
-              controller: 'EditRecordController',
-              resolve: {
-                entity: function ($route, API) {
-                  return API.blog.getSingleRecord($route.current.params.id);
-                }
-              }
-            })
-      .when('/blog/read/:id', {
-              templateUrl: 'static/partials/blog/view.html',
-              controller: 'EditRecordController',
-              resolve: {
-                entity: function ($route, API) {
-                  return API.blog.getSingleRecord($route.current.params.id);
-                }
-              }
-            })
-      .when('/login', {
-              templateUrl: 'static/partials/login.html',
-              controller: 'LoginController'
-            })
-      .when('/mission', {
-              templateUrl: 'static/partials/mission.html'
-            })
-      .when('/funds', {
-              templateUrl: 'static/partials/funds.html',
-              controller: 'FundsController'
-            })
-      .when('/activity', {
-              templateUrl: 'static/partials/activity.html'
-            })
-      .when('/blog', {
-              templateUrl: 'static/partials/blog.html'
-            })
-      .when('/contact', {
-              templateUrl: 'static/partials/contact.html'
-            });
-
-    $routeProvider.otherwise({
-                               templateUrl: 'static/partials/index.html'
-                             });
-
     $locationProvider.hashPrefix('!');
 
     RestangularProvider.setBaseUrl('/rest');

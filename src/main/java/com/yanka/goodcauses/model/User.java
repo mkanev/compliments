@@ -34,8 +34,6 @@ public class User extends Person implements UserDetails {
     private boolean locked;
     private boolean credentialsExpired;
     private boolean enabled = true;
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private Set<NewsEntry> records = new HashSet<>();
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles = new HashSet<>();
 
@@ -117,15 +115,6 @@ public class User extends Person implements UserDetails {
     @JsonView(JsonViews.Preview.class)
     public String getFullName() {
         return super.getFullName();
-    }
-
-    @JsonView(JsonViews.Extended.class)
-    public Set<NewsEntry> getRecords() {
-        return records;
-    }
-
-    public void setRecords(Set<NewsEntry> records) {
-        this.records = records;
     }
 
     @Override

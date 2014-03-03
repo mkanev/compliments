@@ -6,6 +6,9 @@
 html,
 body {
   height: 100%;
+  background-color: #FC0FC0;
+  color: @color-white;
+  font-family: @font-family-light-ru;
 }
 
 .mainWrapper {
@@ -15,36 +18,16 @@ body {
   padding: 0 0 ~"@{footer-height}px";
 }
 
-.page-content {
-  /* Negative indent footer by its height */
-//  margin-bottom: ~"-@{footer-height}px";
-  /* Pad bottom by footer height */
-  padding-top: 60px;
-//  padding-bottom: ~"@{footer-height}px";
-}
-
 header {
   height: ~"@{header-height}px";
-  font-family: @font-family-bold-ru;
-  font-size: 1.8em;
-  line-height: 2em;
-  color: @color-white;
-  background-color: @color-turquoise;
 }
 
-nav,
 footer {
   font-family: @font-family-light-ru;
-}
-
-nav {
-  font-size: 1.2em;
-}
-
-footer {
   height: ~"@{footer-height}px";
-  background-color: @color-concrete;
-  color: @color-white;
+  font-size: 1.35em;
+  line-height: ~"@{footer-line-height}px";
+  text-shadow: 1px 1px 1px #000000;
 }
 
 

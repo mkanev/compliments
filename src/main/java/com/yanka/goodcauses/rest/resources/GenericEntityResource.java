@@ -68,7 +68,7 @@ public abstract class GenericEntityResource<T extends GenericEntity> extends Gen
         sort.setIgnoreCase(false);
         sort.setAscending(false);
         pagedListHolder.resort();
-        logDebug("pagedListHolder created");
+        logDebug("pagedListHolder created, size: " + pagedListHolder.getNrOfElements());
         return pagedListHolder;
     }
 

@@ -13,16 +13,16 @@
 <body ng-controller="ComplimentsController">
 
 <div class="mainWrapper">
-  <div class="visible-lg visible-md" style="min-height: 420px; height: 420px;"></div>
-  <div class="visible-sm" style="min-height: 320px; height: 320px;"></div>
+  <div class="visible-lg visible-md" style="min-height: 320px; height: 320px;"></div>
+  <div class="visible-sm" style="min-height: 270px; height: 270px;"></div>
   <div class="visible-xs" style="min-height: 120px; height: 120px;"></div>
 
   <div class="container">
     <div class="row" ng-repeat="entity in entities">
       <div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-        <h2 class="hidden-xs">{{entity.content}}</h2>
+        <span class="hidden-xs" style="font-size: 4em;">{{entity.content}}</span>
 
-        <h3 class="visible-xs">{{entity.content}}</h3>
+        <span class="visible-xs" style="font-size: 2em;">{{entity.content}}</span>
       </div>
     </div>
   </div>

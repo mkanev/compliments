@@ -13,25 +13,6 @@ define(['angular', 'restangular'], function (angular) {
                  }
                };
              })
-    .factory('AuthService', function ($rootScope, $cookieStore, $location, $http, Restangular, GenericApi) {
-               return {
-                 login: function (authData) {
-                   GenericApi.getEndpoint('user')
-                     .customPOST(authData, 'authenticate', {}, {'Content-Type': 'application/x-www-form-urlencoded'})
-                     .then(function (userData) {
-                             $rootScope.user = userData;
-                             $cookieStore.put('user', userData);
-                             Restangular.setDefaultHeaders({'X-Auth-Token': userData.token});
-                             $location.path("/");
-                           });
-                 },
-                 logout: function () {
-                   delete $rootScope.user;
-                   delete Restangular.defaultHeaders['X-Auth-Token'];
-                   $cookieStore.remove('user');
-                 }
-               }
-             })
     .factory('GenericEntityApi', function ($rootScope, GenericApi) {
                return {
                  getEntityResource: function (path) {

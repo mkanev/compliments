@@ -222,9 +222,6 @@
         </profile>
         <profile>
             <id>h2</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <jdbc.start.h2.server>true</jdbc.start.h2.server>
                 <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
@@ -236,6 +233,9 @@
         </profile>
         <profile>
             <id>postgresql</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <hibernate.dialect>org.hibernate.dialect.PostgreSQL82Dialect</hibernate.dialect>
                 <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>

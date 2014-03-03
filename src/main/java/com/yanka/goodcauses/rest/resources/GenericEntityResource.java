@@ -66,7 +66,7 @@ public abstract class GenericEntityResource<T extends GenericEntity> extends Gen
         MutableSortDefinition sort = (MutableSortDefinition) pagedListHolder.getSort();
         sort.setProperty(T.FIELD_UPDATE_DATE);
         sort.setIgnoreCase(false);
-        sort.setAscending(true);
+        sort.setAscending(false);
         pagedListHolder.resort();
         logDebug("pagedListHolder created");
         return pagedListHolder;

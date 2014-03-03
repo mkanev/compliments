@@ -5,10 +5,23 @@
 
     <context:spring-configured />
     <context:annotation-config />
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <context:component-scan base-package="com.yanka.goodcauses.repository" />
     <context:component-scan base-package="com.yanka.goodcauses.service" />
     <context:component-scan base-package="com.yanka.goodcauses.rest.resources" />
     <import resource="datasource.xml" />
+    <import resource="business.xml" />
     <import resource="security.xml" />
 
     <!--

@@ -1,5 +1,7 @@
 package com.yanka.goodcauses.model;
 
+import com.google.common.base.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -28,5 +30,12 @@ public class Compliment extends GenericEntity {
     @Override
     public void loadFull() {
 
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+            .add("content", content)
+            .toString();
     }
 }

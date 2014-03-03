@@ -37,7 +37,7 @@ public class DataBaseInitializer {
         adminUser.addRole("user");
         adminUser.addRole("admin");
         adminUser = userManager.save(adminUser);
-        initBlogRecords(adminUser);
+//        initBlogRecords(adminUser);
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)

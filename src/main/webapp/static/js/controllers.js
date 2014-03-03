@@ -13,7 +13,7 @@ define(['jquery', 'angular', 'restangular', 'services'], function ($, angular) {
                       $scope.entities = data;
                       $timeout(function () {
                         $scope.fetchResult();
-                      }, 1000);
+                      }, 60 * 1000); // every minute
                     }, function (response) {
                       console.log("Error with status code", response.status);
                     });

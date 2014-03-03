@@ -13,10 +13,9 @@
     </appender>
     <logger name="net.sf.ehcache" level="error"/>
     <logger name="org.apache" level="warn"/>
-    <logger name="org.eclipse.persistence" level="warn"/>
+    <logger name="org.hibernate.engine.jdbc" level="error"/>
     <logger name="org.springframework" level="warn"/>
-    <logger name="org.springframework.web.servlet.view" level="debug"/>
-    <logger name="com.yanka.goodcauses" level="debug"/>
+    <logger name="com.yanka.goodcauses" level="error"/>
     <logger name="com.yanka.goodcauses.security" level="info"/>
     <root level="warn">
         <appender-ref ref="console"/>

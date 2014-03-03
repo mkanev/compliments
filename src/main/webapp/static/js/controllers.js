@@ -11,13 +11,17 @@ define(['jquery', 'angular', 'restangular', 'services'], function ($, angular) {
                   $scope.fetchResult = function () {
                     return API.compliment.getRecords($scope.criteria).then(function (data) {
                       $scope.entities = data;
-                      $timeout(function () {
-                        $scope.fetchResult();
-                      }, 60 * 1000); // every minute
                     }, function (response) {
                       console.log("Error with status code", response.status);
                     });
                   };
-                  $scope.fetchResult();
+                  $scope.periodicUpdate = function () {
+                    $scope.fetchResult();
+                    $timeout(function () {
+                      $scope.periodicUpdate();
+                    }, 60 * 1000); // every minute
+                  };
+                  $scope.periodicUpdate();
+//                  $scope.fetchResult();
                 })
 });

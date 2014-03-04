@@ -22,7 +22,6 @@
     <context:component-scan base-package="com.yanka.goodcauses.rest.resources" />
     <import resource="datasource.xml" />
     <import resource="business.xml" />
-    <import resource="security.xml" />
 
     <!--
         INIT REST COMPONENTS

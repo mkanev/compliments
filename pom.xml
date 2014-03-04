@@ -396,11 +396,6 @@
             <artifactId>angularjs</artifactId>
             <version>${webjars.angularjs.version}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>angular-ui-bootstrap</artifactId>
-            <version>${webjars.angular-ui-bootstrap.version}</version>
-        </dependency>-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>restangular</artifactId>
@@ -421,11 +416,6 @@
             <artifactId>requirejs</artifactId>
             <version>${webjars.requirejs.version}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>requirejs-domready</artifactId>
-            <version>2.0.1</version>
-        </dependency>-->
         <!-- Commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>

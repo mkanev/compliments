@@ -30,7 +30,7 @@ public class ComplimentLoader extends LoggedClass {
     @Autowired
     private ComplimentManager complimentManager;
 
-    @Scheduled(fixedDelay = 1000)
+//    @Scheduled(fixedDelay = 1000)
     private void requestCompliment() {
         long existingEntityCount = complimentManager.getExistingEntityCount();
         if (existingEntityCount >= 10000) {

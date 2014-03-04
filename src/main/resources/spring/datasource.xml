@@ -47,7 +47,7 @@
                      value="update" to modify an existing database;
                      value="create-drop" means the same as "create" but also drops tables when Hibernate closes;
                      value="validate" makes no changes to the database -->
-                <entry key="hibernate.hbm2ddl.auto" value="create-drop" />
+                <entry key="hibernate.hbm2ddl.auto" value="update" />
                 <entry key="hibernate.dialect" value="${hibernate.dialect}" />
                 <entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
                 <entry key="hibernate.connection.charSet" value="UTF-8" />

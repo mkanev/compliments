@@ -35,6 +35,11 @@ public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Ser
         return dao.getExistingEntityList();
     }
 
+    @Override
+    public long getExistingEntityCount() {
+        return dao.getExistingEntityCount();
+    }
+
     /**
      * {@inheritDoc}
      */

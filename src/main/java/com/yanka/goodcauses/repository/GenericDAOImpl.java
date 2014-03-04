@@ -16,6 +16,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -68,6 +69,17 @@ public class GenericDAOImpl<T extends BaseDBObject, PK extends Serializable> ext
         CriteriaSet criteriaSet = getFilteredCriteriaSet();
         TypedQuery typedQuery = em.createQuery(criteriaSet.cq);
         return getResultList(typedQuery);
+    }
+
+    @Override
+    public long getExistingEntityCount() {
+        CriteriaBuilder cb = GenericDAOImpl.this.em.getCriteriaBuilder();
+        CriteriaQuery<Long> lq = cb.createQuery(Long.class);
+        Root<T> r = lq.from(persistentClass);
+        lq.select(cb.count(r));
+        lq.where(cb.or(r.get(T.FIELD_DELETED).isNull(), cb.equal(r.get(T.FIELD_DELETED), Boolean.FALSE)));
+        TypedQuery<Long> query = em.createQuery(lq);
+        return query.getSingleResult();
     }
 
     /**
@@ -228,7 +240,11 @@ public class GenericDAOImpl<T extends BaseDBObject, PK extends Serializable> ext
          * Метод добавляет инструкции в <code>CriteriaQuery</code> для исключения из набора удаленных сущностей
          */
         protected void filterDeleted() {
-            cq.where(cb.or(r.get(T.FIELD_DELETED).isNull(), cb.equal(r.get(T.FIELD_DELETED), Boolean.FALSE)));
+            cq.where(getDeletedPredicate());
+        }
+
+        protected Predicate getDeletedPredicate() {
+            return cb.or(r.get(T.FIELD_DELETED).isNull(), cb.equal(r.get(T.FIELD_DELETED), Boolean.FALSE));
         }
 
     }

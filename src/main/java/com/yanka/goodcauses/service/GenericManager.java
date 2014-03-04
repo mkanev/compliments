@@ -27,6 +27,13 @@ public interface GenericManager<T extends BaseDBObject, PK extends Serializable>
     List<T> getExistingEntityList();
 
     /**
+     * Общий метод для получения количества сущностей одного типа, которые не были удалены.
+     *
+     * @return Список полученных объектов
+     */
+    long getExistingEntityCount();
+
+    /**
      * Generic method to get an object based on class and identifier. An ObjectRetrievalFailureException Runtime Exception is thrown if nothing is found.
      *
      * @param id the identifier (primary key) of the object to get

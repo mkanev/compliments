@@ -30,6 +30,13 @@ public interface GenericDAO<T extends BaseDBObject, PK extends Serializable> {
     List<T> getExistingEntityList();
 
     /**
+     * Общий метод для полученияколичества сущностей одного типа, которые не были удалены.
+     *
+     * @return Список полученных объектов
+     */
+    long getExistingEntityCount();
+
+    /**
      * Общий метод для получения сущности по идентификатору. Возвращает <code>null</code>, если ничего не найдено.
      *
      * @param id идентификатор (primary key) искомого объекта

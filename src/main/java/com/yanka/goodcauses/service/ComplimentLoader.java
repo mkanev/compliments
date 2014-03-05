@@ -13,12 +13,17 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
@@ -27,18 +32,27 @@ import java.util.List;
 public class ComplimentLoader extends LoggedClass {
 
     private static final String USER_AGENT = "Mozilla/5.0";
+    private static final long MAX_COUNT = 7000;
+    @Autowired
+    private TaskScheduler taskScheduler;
     @Autowired
     private ComplimentManager complimentManager;
+    private final AtomicLong counter = new AtomicLong();
+    private ScheduledFuture<?> future;
 
-//    @Scheduled(fixedDelay = 1000)
+    @PostConstruct
+    public void init() {
+        future = taskScheduler.schedule(new Runnable() {
+            @Override
+            public void run() {
+                requestCompliment();
+            }
+        }, new PeriodicTrigger(1000));
+    }
+
     private void requestCompliment() {
-        long existingEntityCount = complimentManager.getExistingEntityCount();
-        if (existingEntityCount >= 10000) {
-            return;
-        }
         try {
             HttpClient httpClient = HttpClientBuilder.create().build();
-
             HttpPost request = new HttpPost("http://online-generators.ru/ajax.php");
             request.setHeader("Host", "online-generators.ru");
             request.setHeader("User-Agent", USER_AGENT);
@@ -48,13 +62,11 @@ public class ComplimentLoader extends LoggedClass {
             request.setHeader("Connection", "keep-alive");
             request.setHeader("Referer", "http://online-generators.ru/compliments");
             request.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-
             List<NameValuePair> postParams = new ArrayList<>();
             postParams.add(new BasicNameValuePair("sex", "0"));
             postParams.add(new BasicNameValuePair("type_compl", "0"));
             postParams.add(new BasicNameValuePair("processor", "compliments"));
             request.setEntity(new UrlEncodedFormEntity(postParams));
-
             HttpResponse response = httpClient.execute(request);
             String msg = EntityUtils.toString(response.getEntity());
             if (StringUtils.isBlank(msg)) {
@@ -71,6 +83,9 @@ public class ComplimentLoader extends LoggedClass {
             Compliment compliment = new Compliment();
             compliment.setContent(content);
             complimentManager.save(compliment);
+            if (counter.getAndIncrement() >= MAX_COUNT) {
+                future.cancel(true);
+            }
         } catch (IOException e) {
             logError(e);
         }

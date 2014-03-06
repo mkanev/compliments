@@ -16,7 +16,7 @@ define(['jquery', 'angular', 'restangular', 'services'], function ($, angular) {
                     $scope.fetchResult();
                     $timeout(function () {
                       $scope.periodicUpdate();
-                    }, /*60 **/ 1000); // every minute
+                    }, 20 * 1000); // every 20 sec
                   };
                   $scope.periodicUpdate();
                 })

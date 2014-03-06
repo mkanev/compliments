@@ -24,7 +24,7 @@
         <property name="connectionTestStatement" value="select 1" />
         <property name="maxConnectionsPerPartition" value="6" />
         <property name="minConnectionsPerPartition" value="2" />
-        <property name="partitionCount" value="3" />
+        <property name="partitionCount" value="5" />
         <property name="acquireIncrement" value="2" />
         <property name="statementsCacheSize" value="100" />
         <property name="statisticsEnabled" value="true" />

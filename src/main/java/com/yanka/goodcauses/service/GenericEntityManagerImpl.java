@@ -47,4 +47,9 @@ public abstract class GenericEntityManagerImpl<T extends GenericEntity> extends 
     public List<T> getLatestEntityList(int size) {
         return genericDao.getLatestEntityList(size);
     }
+
+    @Override
+    public T getRandomEntity() {
+        return genericDao.getRandomEntity();
+    }
 }

@@ -15,7 +15,7 @@
     <logger name="org.apache" level="warn"/>
     <logger name="org.hibernate.engine.jdbc" level="error"/>
     <logger name="org.springframework" level="warn"/>
-    <logger name="com.yanka.goodcauses" level="error"/>
+    <logger name="com.yanka.goodcauses" level="info"/>
     <logger name="com.yanka.goodcauses.security" level="info"/>
     <root level="warn">
         <appender-ref ref="console"/>

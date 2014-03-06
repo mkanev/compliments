@@ -66,9 +66,13 @@ public class GenericDAOImpl<T extends BaseDBObject, PK extends Serializable> ext
     @Override
     @SuppressWarnings("unchecked")
     public List<T> getExistingEntityList() {
-        CriteriaSet criteriaSet = getFilteredCriteriaSet();
-        TypedQuery typedQuery = em.createQuery(criteriaSet.cq);
+        Query typedQuery = getExistingEntityQuery();
         return getResultList(typedQuery);
+    }
+
+    protected TypedQuery<T> getExistingEntityQuery() {
+        CriteriaSet criteriaSet = getFilteredCriteriaSet();
+        return em.createQuery(criteriaSet.cq);
     }
 
     @Override

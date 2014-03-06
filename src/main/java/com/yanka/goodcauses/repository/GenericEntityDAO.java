@@ -21,4 +21,6 @@ public interface GenericEntityDAO<T extends GenericEntity> extends GenericDAO<T,
 
     List<T> getLatestEntityList(int size);
 
+    T getRandomEntity();
+
 }

@@ -37,7 +37,7 @@ public class ComplimentLoader extends LoggedClass {
     private TaskScheduler taskScheduler;
     @Autowired
     private ComplimentManager complimentManager;
-    private final AtomicLong counter = new AtomicLong();
+    private AtomicLong counter;
     private ScheduledFuture<?> future;
 
     @PostConstruct
@@ -51,6 +51,13 @@ public class ComplimentLoader extends LoggedClass {
     }
 
     private void requestCompliment() {
+        if (counter == null) {
+            counter = new AtomicLong(complimentManager.getExistingEntityCount());
+        }
+        if (counter.getAndIncrement() >= MAX_COUNT) {
+            logInfo("Target size reached");
+            future.cancel(true);
+        }
         try {
             HttpClient httpClient = HttpClientBuilder.create().build();
             HttpPost request = new HttpPost("http://online-generators.ru/ajax.php");
@@ -83,9 +90,6 @@ public class ComplimentLoader extends LoggedClass {
             Compliment compliment = new Compliment();
             compliment.setContent(content);
             complimentManager.save(compliment);
-            if (counter.getAndIncrement() >= MAX_COUNT) {
-                future.cancel(true);
-            }
         } catch (IOException e) {
             logError(e);
         }

@@ -38,6 +38,19 @@ public class LoggedClass implements Serializable {
             log.debug(String.format(message, messageParams), e);
         }
     }
+    public void logInfo(String msg, Object... messageParams) {
+        logInfo(msg, null, messageParams);
+    }
+
+    public void logInfo(Exception e) {
+        logInfo(e.getLocalizedMessage(), e);
+    }
+
+    public void logInfo(String message, Exception e, Object... messageParams) {
+        if (log.isInfoEnabled()) {
+            log.info(String.format(message, messageParams), e);
+        }
+    }
 
     public void logWarning(String message, Object... messageParams) {
         logWarning(message, null, messageParams);

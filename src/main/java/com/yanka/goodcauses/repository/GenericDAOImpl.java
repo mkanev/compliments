@@ -22,6 +22,7 @@ import javax.persistence.criteria.Root;
 /**
  * @author <a href="mailto:maksim.kanev@waveaccess.ru">Maksim Kanev</a>
  */
+@Transactional(readOnly = true)
 public class GenericDAOImpl<T extends BaseDBObject, PK extends Serializable> extends LoggedClass implements GenericDAO<T, PK> {
 
     @PersistenceContext
@@ -140,6 +141,7 @@ public class GenericDAOImpl<T extends BaseDBObject, PK extends Serializable> ext
      * {@inheritDoc}
      */
     @Override
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void removeEntity(T entity) {
         if (entity == null) {
             logWarning("Невозможно удалить null");

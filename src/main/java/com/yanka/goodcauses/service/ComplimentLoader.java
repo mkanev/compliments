@@ -18,6 +18,7 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
@@ -51,14 +52,14 @@ public class ComplimentLoader extends LoggedClass {
     }
 
     private void requestCompliment() {
-        if (counter == null) {
-            counter = new AtomicLong(complimentManager.getExistingEntityCount());
-        }
-        if (counter.getAndIncrement() >= MAX_COUNT) {
-            logInfo("Target size reached");
-            future.cancel(true);
-        }
         try {
+            if (counter == null) {
+                counter = new AtomicLong(complimentManager.getExistingEntityCount());
+            }
+            if (counter.getAndIncrement() >= MAX_COUNT) {
+                logInfo("Target size reached");
+                future.cancel(true);
+            }
             HttpClient httpClient = HttpClientBuilder.create().build();
             HttpPost request = new HttpPost("http://online-generators.ru/ajax.php");
             request.setHeader("Host", "online-generators.ru");
@@ -90,7 +91,7 @@ public class ComplimentLoader extends LoggedClass {
             Compliment compliment = new Compliment();
             compliment.setContent(content);
             complimentManager.save(compliment);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logError(e);
         }
     }

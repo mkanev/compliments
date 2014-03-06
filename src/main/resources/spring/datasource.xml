@@ -9,25 +9,25 @@
      -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
-    <bean class="java.net.URI" id="dbUrl">
+    <!--<bean class="java.net.URI" id="dbUrl">
         <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
-    </bean>
+    </bean>-->
 
     <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
         <property name="driverClass" value="${database.driverClassName}" />
-        <!--<property name="jdbcUrl" value="${database.url}" />-->
-        <property name="jdbcUrl" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }" />
-        <!--<property name="username" value="${database.username}" />-->
-        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
-        <!--<property name="password" value="${database.password}" />-->
-        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }" />
+        <property name="jdbcUrl" value="${database.url}" />
+        <!--<property name="jdbcUrl" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }" />-->
+        <property name="username" value="${database.username}" />
+        <!--<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />-->
+        <property name="password" value="${database.password}" />
+        <!--<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }" />-->
         <property name="connectionTestStatement" value="select 1" />
         <property name="maxConnectionsPerPartition" value="6" />
         <property name="minConnectionsPerPartition" value="2" />
         <property name="partitionCount" value="5" />
         <property name="acquireIncrement" value="2" />
         <property name="statementsCacheSize" value="100" />
-        <property name="statisticsEnabled" value="true" />
+        <property name="defaultAutoCommit" value="true" />
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">

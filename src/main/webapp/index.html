@@ -3,26 +3,28 @@
 <head>
   <title>Комлименты :)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="description" content="Поздравление для наших девушек" />
+  <meta name="description" content="Поздравление для наших девушек"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link rel="publisher" href="http://www.wave-access.com"/>
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="icon" href="/favicon.ico" />
   <link rel="stylesheet" href="/webjars/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/webjars/font-awesome/4.0.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="/static/css/main.css">
 </head>
-<body ng-controller="ComplimentsController">
+<body ng-controller="ComplimentsController" style="opacity: 0;">
 
 <div class="mainWrapper">
-  <div class="visible-lg visible-md" style="min-height: 420px; height: 420px;"></div>
-  <div class="visible-sm" style="min-height: 320px; height: 320px;"></div>
+  <div class="visible-lg visible-md" style="min-height: 270px; height: 270px;"></div>
+  <div class="visible-sm" style="min-height: 270px; height: 270px;"></div>
   <div class="visible-xs" style="min-height: 120px; height: 120px;"></div>
 
-  <div class="container">
-    <div class="row" ng-repeat="entity in entities">
+  <div class="container-fluid">
+    <div class="row">
       <div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-        <h2 class="hidden-xs">{{entity.content}}</h2>
+        <span class="hidden-xs" style="font-size: 6em;">{{entity.content}}</span>
 
-        <h3 class="visible-xs">{{entity.content}}</h3>
+        <span class="visible-xs" style="font-size: 2em;">{{entity.content}}</span>
       </div>
     </div>
   </div>
@@ -30,17 +32,12 @@
 
 <footer>
   <div class="container">
-    <div class="row hidden">
-      <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-12 text-center">
-        <button class="btn btn-default btn-block" ng-click="fetchResult()">More</button>
-      </div>
-    </div>
     <div class="row">
       <div class="col-md-12 text-center">With <i class="fa fa-heart"></i> from WaveAccess</div>
     </div>
   </div>
 </footer>
 
-<script src="webjars/requirejs/2.1.8/require.js" data-main="static/js/main"></script>
+<script src="webjars/requirejs/2.1.8/require.min.js" data-main="static/js/main"></script>
 </body>
 </html>

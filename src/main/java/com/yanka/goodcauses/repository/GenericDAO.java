@@ -105,4 +105,6 @@ public interface GenericDAO<T extends BaseDBObject, PK extends Serializable> {
      * @return loaded object
      */
     T getFull(PK id);
+
+    T getRandomEntity();
 }

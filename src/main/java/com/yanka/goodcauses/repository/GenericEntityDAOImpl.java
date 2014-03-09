@@ -4,11 +4,9 @@ import com.yanka.goodcauses.model.GenericEntity;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.Criteria;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -91,16 +89,6 @@ public abstract class GenericEntityDAOImpl<T extends GenericEntity> extends Gene
         cs.cq.orderBy(cs.cb.desc(cs.r.get(T.FIELD_UPDATE_DATE)));
         TypedQuery typedQuery = em.createQuery(cs.cq);
         return getResultList(typedQuery);
-    }
-
-    @Override
-    public T getRandomEntity() {
-        Long entityCount = getExistingEntityCount();
-        Random random = new Random();
-        TypedQuery<T> existingEntityQuery = getExistingEntityQuery();
-        existingEntityQuery.setFirstResult(random.nextInt(entityCount.intValue()));
-        existingEntityQuery.setMaxResults(1);
-        return existingEntityQuery.getSingleResult();
     }
 
     @Override

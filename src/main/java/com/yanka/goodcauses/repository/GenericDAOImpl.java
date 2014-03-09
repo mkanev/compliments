@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -179,6 +180,19 @@ public class GenericDAOImpl<T extends BaseDBObject, PK extends Serializable> ext
         T u = getEntity(id);
         fill(u);
         return u;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T getRandomEntity() {
+        Long entityCount = getExistingEntityCount();
+        Random random = new Random();
+        TypedQuery<T> existingEntityQuery = getExistingEntityQuery();
+        existingEntityQuery.setFirstResult(random.nextInt(entityCount.intValue()));
+        existingEntityQuery.setMaxResults(1);
+        return existingEntityQuery.getSingleResult();
     }
 
     /**

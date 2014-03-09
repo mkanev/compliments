@@ -66,4 +66,6 @@ public interface GenericManager<T extends BaseDBObject, PK extends Serializable>
     void remove(PK id);
 
     T getFull(PK id);
+
+    T getRandomEntity();
 }

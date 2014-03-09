@@ -14,17 +14,17 @@ import java.util.List;
 public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Serializable> extends LoggedClass implements GenericManager<T, PK> {
 
     private static final long serialVersionUID = 4852856653776616598L;
-    protected GenericDAO<T, PK> dao;
+    protected GenericDAO<T, PK> genericDAO;
 
     public GenericManagerImpl(GenericDAO<T, PK> genericDao) {
-        this.dao = genericDao;
+        this.genericDAO = genericDao;
     }
 
     /**
      * {@inheritDoc}
      */
     public List<T> getAll() {
-        return dao.getAll();
+        return genericDAO.getAll();
     }
 
     /**
@@ -32,26 +32,26 @@ public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Ser
      */
     @Override
     public List<T> getExistingEntityList() {
-        return dao.getExistingEntityList();
+        return genericDAO.getExistingEntityList();
     }
 
     @Override
     public long getExistingEntityCount() {
-        return dao.getExistingEntityCount();
+        return genericDAO.getExistingEntityCount();
     }
 
     /**
      * {@inheritDoc}
      */
     public T get(PK id) {
-        return dao.getEntity(id);
+        return genericDAO.getEntity(id);
     }
 
     /**
      * {@inheritDoc}
      */
     public boolean exists(PK id) {
-        return dao.exists(id);
+        return genericDAO.exists(id);
     }
 
     /**
@@ -59,18 +59,23 @@ public abstract class GenericManagerImpl<T extends GenericEntity, PK extends Ser
      */
     public T save(T object) {
         logDebug("___GenericManagerImpl.save %s", object);
-        return dao.saveEntity(object);
+        return genericDAO.saveEntity(object);
     }
 
     /**
      * {@inheritDoc}
      */
     public void remove(PK id) {
-        dao.deleteEntity(id);
+        genericDAO.deleteEntity(id);
     }
 
     public T getFull(PK id) {
-        return dao.getFull(id);
+        return genericDAO.getFull(id);
+    }
+
+    @Override
+    public T getRandomEntity() {
+        return genericDAO.getRandomEntity();
     }
 }
 

@@ -11,45 +11,41 @@ import java.util.List;
  */
 public abstract class GenericEntityManagerImpl<T extends GenericEntity> extends GenericManagerImpl<T, Long> implements GenericEntityManager<T> {
 
-    private GenericEntityDAO<T> genericDao;
+    private GenericEntityDAO<T> genericEntityDao;
 
-    public GenericEntityManagerImpl(GenericEntityDAO<T> genericDao) {
-        super(genericDao);
-        this.genericDao = genericDao;
+    public GenericEntityManagerImpl(GenericEntityDAO<T> genericEntityDao) {
+        super(genericEntityDao);
+        this.genericEntityDao = genericEntityDao;
     }
 
     @Override
     public List<T> findByNamedQuery(String queryName, Object... parameters) {
-        return genericDao.findByNamedQuery(queryName, parameters);
+        return genericEntityDao.findByNamedQuery(queryName, parameters);
     }
 
     @Override
     public List<T> findByNamedQuery(String queryName, int resultLimit, Object... parameters) {
-        return genericDao.findByNamedQuery(queryName, resultLimit, parameters);
+        return genericEntityDao.findByNamedQuery(queryName, resultLimit, parameters);
     }
 
     @Override
     public List<T> findByNamedQuery(String queryName, int start, int end, Object... parameters) {
-        return genericDao.findByNamedQuery(queryName, start, end, parameters);
+        return genericEntityDao.findByNamedQuery(queryName, start, end, parameters);
     }
 
     @Override
     public List<T> getDateTimeOrderedEntityList() {
-        return genericDao.getDateTimeOrderedEntityList();
+        return genericEntityDao.getDateTimeOrderedEntityList();
     }
 
     @Override
     public List<T> getReverseDateTimeOrderedEntityList() {
-        return genericDao.getReverseDateTimeOrderedEntityList();
+        return genericEntityDao.getReverseDateTimeOrderedEntityList();
     }
 
     @Override
     public List<T> getLatestEntityList(int size) {
-        return genericDao.getLatestEntityList(size);
+        return genericEntityDao.getLatestEntityList(size);
     }
 
-    @Override
-    public T getRandomEntity() {
-        return genericDao.getRandomEntity();
-    }
 }

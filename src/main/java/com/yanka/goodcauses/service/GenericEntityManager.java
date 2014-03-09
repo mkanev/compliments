@@ -24,5 +24,4 @@ public interface GenericEntityManager<T extends GenericEntity> extends GenericMa
 
     List<T> getLatestEntityList(int size);
 
-    T getRandomEntity();
 }
